@@ -237,6 +237,138 @@
     margin-top: 4px;
   }
 
+  /* ─────────────────────── Substeps (in Step 05) ─────────────────────── */
+  .substep {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 16px;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px dashed var(--border-secondary);
+  }
+  .substep:first-of-type {
+    margin-top: 22px;
+    padding-top: 22px;
+  }
+  .substep-num {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 22px; font-weight: 700;
+    line-height: 1.4;
+    color: var(--gold);
+    text-align: center;
+  }
+  .substep-content { min-width: 0; }
+  .substep-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 18px; font-weight: 700;
+    line-height: 1.4;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .substep-desc {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .substep-desc strong { color: var(--text); font-weight: 500; }
+
+  /* ─────────────────────── UI mockups ─────────────────────── */
+  .ui-mockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 12px 0 10px;
+    padding: 10px 14px;
+    background: var(--bg-content);
+    border: 1px dashed var(--border-secondary);
+    border-radius: 6px;
+    max-width: 100%;
+  }
+  .ui-mockup-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.25em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+  /* Folder pill (mock of Claude Code folder selector) */
+  .folder-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    color: var(--text-secondary);
+    letter-spacing: 0.03em;
+  }
+  .folder-pill.active {
+    background: rgba(186, 153, 114, 0.12);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .folder-icon {
+    display: inline-block;
+    width: 14px; height: 11px;
+    border: 1.2px solid currentColor;
+    border-radius: 2px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .folder-icon::before {
+    content: '';
+    position: absolute;
+    top: -3.5px; left: 1px;
+    width: 5px; height: 3px;
+    border: 1.2px solid currentColor;
+    border-bottom: 0;
+    border-radius: 1px 1px 0 0;
+  }
+  /* Skill tag (mock of Ran skill /xxx) */
+  .skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+  }
+  .skill-tag-icon {
+    color: var(--text-tertiary);
+    font-size: 14px;
+    line-height: 1;
+  }
+  .skill-tag-text { color: var(--text-secondary); }
+  .skill-tag-name { color: var(--gold); font-weight: 500; }
+
+  /* Success message (light green) */
+  .success-msg {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-top: 8px;
+    background: rgba(130, 210, 138, 0.1);
+    border: 1px solid var(--success);
+    border-radius: 3px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    color: var(--success);
+    letter-spacing: 0.05em;
+  }
+  .success-msg strong { color: var(--success); font-weight: 700; }
+
   /* ─────────────────────── Explore button (Step 05 CTA) ─────────────────────── */
   .btn-explore {
     display: flex;
@@ -588,12 +720,60 @@
       <div class="step">
         <div class="step-num">05</div>
         <div class="step-content">
-          <h3 class="step-title">開始用</h3>
-          <p class="step-desc">設定完成後，之後想做設計直接用日常語言：</p>
-          <div class="quote-block" style="margin-bottom: 8px;">「幫我做下週活動的 IG 封面」</div>
-          <div class="quote-block" style="margin-bottom: 8px;">「做一份提案 PPT 第一頁」</div>
-          <div class="quote-block">「把這段內容做成 6 張多圖」</div>
-          <p class="step-desc" style="margin-top: 14px;">會自動套用 ARTOGO 金棕色 #ba9972 + 深色底 + Roboto/Noto Sans TC 字型。</p>
+          <h3 class="step-title">日常開始使用</h3>
+          <p class="step-desc">設定完成後，之後每次想做設計，<strong>依序做這 3 個動作</strong>：</p>
+
+          <!-- 子步驟 ① -->
+          <div class="substep">
+            <div class="substep-num">①</div>
+            <div class="substep-content">
+              <h4 class="substep-title">先指定本次的工作資料夾</h4>
+              <p class="substep-desc">在 Claude Code 對話框上方點資料夾名稱，<strong>切到你這次要存產出檔案的位置</strong>。</p>
+              <div class="ui-mockup">
+                <span class="ui-mockup-label">在 Claude Code 中</span>
+                <span class="folder-pill"><span class="folder-icon"></span>Local</span>
+                <span class="folder-pill active"><span class="folder-icon"></span>Design test</span>
+              </div>
+              <div class="step-warn">⚠️ 沒指定資料夾，生成的檔案會跑到奇怪的位置，等你要找的時候找不到</div>
+            </div>
+          </div>
+
+          <!-- 子步驟 ② -->
+          <div class="substep">
+            <div class="substep-num">②</div>
+            <div class="substep-content">
+              <h4 class="substep-title">呼叫 ARTOGO 設計大師</h4>
+              <p class="substep-desc">在對話框打 <strong>下面任一句話</strong> 都會觸發：</p>
+              <div class="quote-block" style="margin-bottom: 6px;">ARTOGO Design Master</div>
+              <div class="quote-block" style="margin-bottom: 6px;">ARTOGO 設計</div>
+              <div class="quote-block">ARTOGO 設計大師</div>
+              <p class="substep-desc" style="margin-top: 16px;">送出後看訊息<strong>頂部</strong>，應該會出現這個標籤：</p>
+              <div class="ui-mockup">
+                <span class="ui-mockup-label">訊息頂部</span>
+                <span class="skill-tag">
+                  <span class="skill-tag-icon">›</span>
+                  <span class="skill-tag-text">Ran skill</span>
+                  <span class="skill-tag-name">/artogo-design-master</span>
+                  <span class="skill-tag-icon">›</span>
+                </span>
+              </div>
+              <div class="success-msg">✓ 看到這個標籤 ＝ skill 真的被觸發了，<strong>安裝成功</strong></div>
+            </div>
+          </div>
+
+          <!-- 子步驟 ③ -->
+          <div class="substep">
+            <div class="substep-num">③</div>
+            <div class="substep-content">
+              <h4 class="substep-title">開始請它做事</h4>
+              <p class="substep-desc">用日常語言描述你要的設計：</p>
+              <div class="quote-block" style="margin-bottom: 8px;">「幫我做下週活動的 IG 封面」</div>
+              <div class="quote-block" style="margin-bottom: 8px;">「做一份提案 PPT 第一頁」</div>
+              <div class="quote-block">「把這段內容做成 6 張多圖」</div>
+              <p class="substep-desc" style="margin-top: 14px;">會自動套用 ARTOGO 金棕色 #ba9972 + 深色底 + Roboto/Noto Sans TC 字型。</p>
+            </div>
+          </div>
+
           <button class="btn-explore" type="button" data-go-tab="showcase">
             <span class="btn-explore-text">
               <span class="btn-explore-title">不確定它能幫我做哪些事？</span>

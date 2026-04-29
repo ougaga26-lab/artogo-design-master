@@ -1,6 +1,6 @@
 ---
 name: artogo-design-master
-description: ARTOGO Design Master — ARTOGO 公司專屬設計助手。當同事第一次使用 ARTOGO 設計工具、想做套用 ARTOGO 設計規範的視覺產出、或不知道怎麼開始時觸發。職責有三：(1) 首次設定 — 自動安裝 huashu-design skill、寫入 ARTOGO brand-spec 路徑指引到 ~/.claude/CLAUDE.md、引導熱身任務；(2) 持續陪伴 — 同事忘記怎麼用、出問題、想看用法時當參考；(3) 任務轉派 — 同事說「做張封面」「做張海報」等設計需求時，自動把 ARTOGO 規範 + 同事需求合併成 brief，交給 huashu-design 處理。觸發詞：「ARTOGO Design Master」「ARTOGO 設計」「ARTOGO 設定」「ARTOGO 設計規範」「ARTOGO 怎麼用」「設計 Master」「公司設計工具」「初始化設計工具」「我要開始用 ARTOGO 設計」「重新設定設計工具」。
+description: ARTOGO Design Master — ARTOGO 公司專屬設計助手。當同事第一次使用 ARTOGO 設計工具、想做套用 ARTOGO 設計規範的視覺產出、或不知道怎麼開始時觸發。職責有三：(1) 首次設定 — 自動安裝 huashu-design skill、寫入 ARTOGO brand-spec 路徑指引到 ~/.claude/CLAUDE.md、引導熱身任務；(2) 持續陪伴 — 同事忘記怎麼用、出問題、想看用法時當參考；(3) 任務轉派 — 同事說「做張封面」「做張海報」等設計需求時，自動把 ARTOGO 規範 + 同事需求合併成 brief，交給 huashu-design 處理。觸發詞：「ARTOGO Design Master」「ARTOGO 設計大師」「ARTOGO 設計」「ARTOGO 設定」「ARTOGO 設計規範」「ARTOGO 怎麼用」「設計大師」「設計 Master」「公司設計工具」「初始化設計工具」「我要開始用 ARTOGO 設計」「重新設定設計工具」。
 ---
 
 # ARTOGO Design Master
