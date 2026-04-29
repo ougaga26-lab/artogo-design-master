@@ -237,6 +237,56 @@
     margin-top: 4px;
   }
 
+  /* ─────────────────────── Explore button (Step 05 CTA) ─────────────────────── */
+  .btn-explore {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 540px;
+    margin-top: 28px;
+    padding: 20px 26px;
+    background: var(--bg-content);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    font-family: 'Noto Sans TC', sans-serif;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+  }
+  .btn-explore:hover {
+    background: rgba(186, 153, 114, 0.12);
+  }
+  .btn-explore-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .btn-explore-title {
+    font-size: 17px; font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+  .btn-explore-sub {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.05em;
+  }
+  .btn-explore-arrow {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px; font-weight: 400;
+    color: var(--gold);
+    margin-left: 24px;
+    transition: transform 0.25s ease-out;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .btn-explore:hover .btn-explore-arrow {
+    transform: translateX(8px);
+  }
+
   /* ─────────────────────── CTA card ─────────────────────── */
   .cta-card {
     margin: 48px 0 80px;
@@ -543,7 +593,14 @@
           <div class="quote-block" style="margin-bottom: 8px;">「幫我做下週活動的 IG 封面」</div>
           <div class="quote-block" style="margin-bottom: 8px;">「做一份提案 PPT 第一頁」</div>
           <div class="quote-block">「把這段內容做成 6 張多圖」</div>
-          <p class="step-desc" style="margin-top: 14px;">會自動套用 ARTOGO 金棕色 #ba9972 + 深色底 + Roboto/Noto Sans TC 字型。要看 ARTOGO 設計工具能做什麼，點上面的 <strong>應用案例</strong> 分頁。</p>
+          <p class="step-desc" style="margin-top: 14px;">會自動套用 ARTOGO 金棕色 #ba9972 + 深色底 + Roboto/Noto Sans TC 字型。</p>
+          <button class="btn-explore" type="button" data-go-tab="showcase">
+            <span class="btn-explore-text">
+              <span class="btn-explore-title">不確定它能幫我做哪些事？</span>
+              <span class="btn-explore-sub">9 種應用案例完整展示</span>
+            </span>
+            <span class="btn-explore-arrow">→</span>
+          </button>
         </div>
       </div>
     </div>
@@ -806,6 +863,11 @@
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+  });
+
+  // Other buttons that trigger tab switch (e.g. Step 05 explore CTA)
+  document.querySelectorAll('[data-go-tab]').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.goTab));
   });
 
   // Initial load: respect URL hash
