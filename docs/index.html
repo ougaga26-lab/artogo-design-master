@@ -672,6 +672,125 @@
     .case.flip .case-text { order: 1; }
   }
 
+  /* ─────────────────────── Carousel (Learn page) ─────────────────────── */
+  .carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 56px auto 24px;
+    max-width: 100%;
+  }
+  .carousel-btn {
+    width: 48px;
+    height: 48px;
+    background: var(--bg-container);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .carousel-btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #191919;
+  }
+  .carousel-stage {
+    width: 720px;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-base);
+    border: 1px solid var(--border-secondary);
+    border-radius: 6px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+    flex-shrink: 0;
+  }
+  .carousel-slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1080px;
+    height: 1080px;
+    border: 0;
+    transform: scale(0.667);
+    transform-origin: top left;
+    display: none;
+  }
+  .carousel-slide.active {
+    display: block;
+  }
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .carousel-dots {
+    display: flex;
+    gap: 10px;
+  }
+  .carousel-dot {
+    width: 9px;
+    height: 9px;
+    background: var(--border);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease-out;
+  }
+  .carousel-dot:hover {
+    background: var(--gold-light);
+  }
+  .carousel-dot.active {
+    background: var(--gold);
+    transform: scale(1.3);
+  }
+  .carousel-page-num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--text-tertiary);
+  }
+  .carousel-page-num .current {
+    color: var(--gold);
+  }
+  .carousel-hint {
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-tertiary);
+    margin: 24px 0 64px;
+    text-transform: uppercase;
+  }
+
+  /* Carousel responsive */
+  @media (max-width: 980px) {
+    .carousel-stage { width: 540px; height: 540px; }
+    .carousel-slide { transform: scale(0.5); }
+  }
+  @media (max-width: 720px) {
+    .carousel { gap: 12px; }
+    .carousel-stage { width: 360px; height: 360px; }
+    .carousel-slide { transform: scale(0.333); }
+    .carousel-btn { width: 40px; height: 40px; font-size: 24px; }
+  }
+  @media (max-width: 480px) {
+    .carousel-stage { width: 280px; height: 280px; }
+    .carousel-slide { transform: scale(0.259); }
+  }
+
   /* ─────────────────────── Footer ─────────────────────── */
   .footer {
     border-top: 1px solid var(--border-secondary);
@@ -724,6 +843,7 @@
     </div>
     <div class="nav-tabs">
       <button class="nav-tab active" data-tab="install">安裝</button>
+      <button class="nav-tab" data-tab="learn">了解 Skill</button>
       <button class="nav-tab" data-tab="showcase">應用案例</button>
     </div>
   </div>
@@ -875,7 +995,49 @@
   </div>
 </section>
 
-<!-- ═══════════════════════ Page 2 · Showcase ═══════════════════════ -->
+<!-- ═══════════════════════ Page 2 · Learn (什麼是 Skill) ═══════════════════════ -->
+<section class="page" id="learn">
+  <div class="container">
+
+    <div class="showcase-hero">
+      <div class="hero-eyebrow">UNDERSTAND THE TOOL · WHAT IS A SKILL?</div>
+      <h1 class="showcase-hero-title">什麼是 <span class="accent">Skill</span>？</h1>
+      <p class="showcase-hero-sub">6 個常見問題 · 用日常語言講清楚 ARTOGO Design Master 背後是什麼東西。看完你會知道：它住在哪、怎麼被叫出來、會不會打架、換電腦會跟過去嗎。</p>
+    </div>
+
+    <div class="carousel">
+      <button class="carousel-btn carousel-prev" type="button" aria-label="上一張">‹</button>
+      <div class="carousel-stage">
+        <iframe class="carousel-slide active" src="cards/01-what-is-skill.html" data-idx="0" loading="lazy" title="01 技能是什麼"></iframe>
+        <iframe class="carousel-slide" src="cards/02-how-to-list.html" data-idx="1" loading="lazy" title="02 怎麼查看技能"></iframe>
+        <iframe class="carousel-slide" src="cards/03-trigger.html" data-idx="2" loading="lazy" title="03 怎麼呼叫技能"></iframe>
+        <iframe class="carousel-slide" src="cards/04-conflicts.html" data-idx="3" loading="lazy" title="04 技能會打架嗎"></iframe>
+        <iframe class="carousel-slide" src="cards/05-manage.html" data-idx="4" loading="lazy" title="05 怎麼管理技能"></iframe>
+        <iframe class="carousel-slide" src="cards/06-cross-machine.html" data-idx="5" loading="lazy" title="06 換電腦會跟過去嗎"></iframe>
+      </div>
+      <button class="carousel-btn carousel-next" type="button" aria-label="下一張">›</button>
+    </div>
+
+    <div class="carousel-controls">
+      <div class="carousel-dots">
+        <button class="carousel-dot active" type="button" data-idx="0" aria-label="第 1 張"></button>
+        <button class="carousel-dot" type="button" data-idx="1" aria-label="第 2 張"></button>
+        <button class="carousel-dot" type="button" data-idx="2" aria-label="第 3 張"></button>
+        <button class="carousel-dot" type="button" data-idx="3" aria-label="第 4 張"></button>
+        <button class="carousel-dot" type="button" data-idx="4" aria-label="第 5 張"></button>
+        <button class="carousel-dot" type="button" data-idx="5" aria-label="第 6 張"></button>
+      </div>
+      <div class="carousel-page-num">
+        <span class="current">01</span> / 06
+      </div>
+    </div>
+
+    <div class="carousel-hint">// 提示：可用鍵盤左右鍵切換</div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════ Page 3 · Showcase ═══════════════════════ -->
 <section class="page" id="showcase">
   <div class="container">
 
@@ -1134,7 +1296,7 @@
 
   // Initial load: respect URL hash
   const initialHash = window.location.hash.replace('#', '');
-  if (initialHash === 'showcase') switchTab('showcase');
+  if (initialHash === 'showcase' || initialHash === 'learn') switchTab(initialHash);
 
   // ─────────────── Copy button ───────────────
   document.querySelectorAll('.copy-btn').forEach(btn => {
@@ -1166,6 +1328,50 @@
         }, 2000);
       }
     });
+  });
+
+  // ─────────────── Carousel (Learn page) ───────────────
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  const prevBtn = document.querySelector('.carousel-prev');
+  const nextBtn = document.querySelector('.carousel-next');
+  const pageNumCurrent = document.querySelector('.carousel-page-num .current');
+  let currentIdx = 0;
+  const totalSlides = slides.length;
+
+  function goToSlide(idx) {
+    if (totalSlides === 0) return;
+    const newIdx = ((idx % totalSlides) + totalSlides) % totalSlides;
+    if (newIdx === currentIdx) return;
+    slides[currentIdx].classList.remove('active');
+    dots[currentIdx].classList.remove('active');
+    currentIdx = newIdx;
+    slides[currentIdx].classList.add('active');
+    dots[currentIdx].classList.add('active');
+    if (pageNumCurrent) {
+      pageNumCurrent.textContent = String(currentIdx + 1).padStart(2, '0');
+    }
+  }
+  function nextSlide() { goToSlide(currentIdx + 1); }
+  function prevSlide() { goToSlide(currentIdx - 1); }
+
+  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)));
+
+  // Keyboard nav (only when learn tab is active)
+  document.addEventListener('keydown', e => {
+    const learnTab = document.getElementById('learn');
+    if (!learnTab || !learnTab.classList.contains('active')) return;
+    if (e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'ArrowRight') nextSlide();
+  });
+
+  // ─────────────── PostMessage from iframes (e.g. card 06 CTA) ───────────────
+  window.addEventListener('message', e => {
+    if (e.data && e.data.type === 'switch-tab' && e.data.tab) {
+      switchTab(e.data.tab);
+    }
   });
 </script>
 

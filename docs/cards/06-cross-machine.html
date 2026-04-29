@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>06 · 換電腦會跟過去嗎</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #191919; --bg-container: #353535; --bg-content: #252525;
+    --gold: #ba9972; --gold-light: #ddb586; --gold-pale: #fee3c4;
+    --text: #e7e7e7; --text-secondary: #c4c4c4; --text-tertiary: #858585;
+    --border: #595959; --border-secondary: #4a4a4a;
+    --error: #f36363;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1080px; height: 1080px; background: var(--bg-base);
+    font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+    letter-spacing: 0.05em; line-height: 1.8;
+    color: var(--text); -webkit-font-smoothing: antialiased; overflow: hidden;
+  }
+  .canvas { width: 1080px; height: 1080px; padding: 80px; display: flex; flex-direction: column; position: relative; }
+
+  .header { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 32px; border-bottom: 1px solid var(--border-secondary); }
+  .brand { font-size: 13px; font-weight: 500; letter-spacing: 0.3em; color: var(--gold); }
+  .brand-dot { color: var(--text-tertiary); margin: 0 12px; }
+  .meta { font-family: 'Roboto Mono', monospace; font-size: 12px; color: var(--text-tertiary); letter-spacing: 0.15em; }
+
+  .hero { margin-top: 64px; display: flex; align-items: flex-end; gap: 40px; }
+  .number { font-size: 144px; font-weight: 700; line-height: 0.85; color: var(--gold); letter-spacing: -0.02em; flex-shrink: 0; }
+  .number-line { flex: 1; height: 1px; background: var(--border); margin-bottom: 32px; position: relative; }
+  .number-line::after { content: ''; position: absolute; right: 0; top: -2px; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; }
+
+  .title-block { margin-top: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.3em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 14px; }
+  .title { font-family: 'Noto Sans TC', sans-serif; font-size: 44px; font-weight: 700; line-height: 1.3; letter-spacing: 0.02em; color: var(--text); }
+
+  /* ── 等式：技能 = 本地檔案 ≠ 帳號設定 ── */
+  .equation {
+    margin-top: 44px;
+    padding: 28px 32px;
+    background: var(--bg-container);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+  .equation-row { font-family: 'Noto Sans TC', sans-serif; font-size: 21px; font-weight: 500; line-height: 1.7; color: var(--text); }
+  .equation .lhs { color: var(--gold); font-weight: 700; }
+  .equation .eq { color: var(--gold); margin: 0 12px; font-weight: 400; }
+  .equation .neq { color: var(--error); margin: 0 12px; font-weight: 400; }
+  .equation .strike-soft { color: var(--text-tertiary); }
+  .equation .highlight { color: var(--text); border-bottom: 1px solid var(--gold); padding-bottom: 1px; }
+
+  /* ── 兩台電腦對比 ── */
+  .machines { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .machine-card {
+    padding: 22px 26px 26px;
+    background: var(--bg-container);
+    border-radius: 4px;
+  }
+  .machine-card.this { border-top: 2px solid var(--gold); }
+  .machine-card.other { border-top: 2px solid var(--border); }
+  .m-tag { font-family: 'Roboto Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; }
+  .machine-card.this .m-tag { color: var(--gold); }
+  .machine-card.other .m-tag { color: var(--text-tertiary); }
+  .m-name { font-family: 'Noto Sans TC', sans-serif; font-size: 17px; font-weight: 700; color: var(--text); margin-top: 8px; margin-bottom: 14px; }
+  .m-status {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .m-status .ok { color: var(--gold); font-weight: 500; }
+  .m-status .empty { color: var(--text-tertiary); }
+  .m-status .fix { color: var(--gold-light); font-weight: 500; }
+
+  /* ── 重裝指令大字 ── */
+  .reinstall { margin-top: 32px; }
+  .reinstall-label { font-family: 'Roboto Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.3em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 12px; }
+  .reinstall-cmd {
+    padding: 20px 24px;
+    background: var(--bg-content);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    color: var(--gold-light);
+    letter-spacing: 0.02em;
+    word-break: break-all;
+  }
+  .reinstall-note { font-size: 13px; color: var(--text-tertiary); margin-top: 10px; }
+
+  /* ── 結尾 callout：跳回 ARTOGO Master 安裝 ── */
+  .closing-callout {
+    margin-top: 18px;
+    padding: 14px 20px;
+    background: var(--gold);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    box-shadow:
+      0 0 24px rgba(186, 153, 114, 0.4),
+      0 0 48px rgba(186, 153, 114, 0.18);
+  }
+  .closing-callout-text {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    color: #191919;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+  }
+  .closing-callout-text strong {
+    color: #191919;
+    font-weight: 700;
+    font-size: 14.5px;
+  }
+  .closing-callout-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 14px;
+    background: #191919;
+    border: 1px solid #191919;
+    border-radius: 4px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--gold);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    transition: all 0.2s ease-out;
+    flex-shrink: 0;
+  }
+  .closing-callout-cta:hover {
+    background: #2a2a2a;
+    transform: translateX(2px);
+  }
+
+  .footer { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border-secondary); display: flex; justify-content: space-between; align-items: center; }
+  .wordmark { font-size: 14px; font-weight: 700; letter-spacing: 0.4em; color: var(--text); }
+  .footer-meta { font-family: 'Roboto Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--text-tertiary); }
+  .footer-meta .current { color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <div class="header">
+    <div class="brand">ARTOGO<span class="brand-dot">·</span>NOTES</div>
+    <div class="meta">CLAUDE_SKILLS / Q&amp;A · 2026</div>
+  </div>
+
+  <div class="hero">
+    <div class="number">06</div>
+    <div class="number-line"></div>
+  </div>
+
+  <div class="title-block">
+    <div class="eyebrow">QUESTION SIX</div>
+    <h1 class="title">換電腦會跟過去嗎？</h1>
+  </div>
+
+  <div class="equation">
+    <div class="equation-row">
+      <span class="lhs">技能</span>
+      <span class="eq">＝</span>
+      <span class="highlight">本地檔案</span>
+      <span class="neq">≠</span>
+      <span class="strike-soft">帳號設定</span>
+    </div>
+  </div>
+
+  <div class="machines">
+    <div class="machine-card this">
+      <div class="m-tag">CURRENT MACHINE</div>
+      <div class="m-name">這台電腦</div>
+      <div class="m-status">
+        ✓ <span class="ok">huashu-design 已裝</span><br>
+        檔案在 <code style="font-family: 'Roboto Mono', monospace; font-size: 12.5px; color: var(--gold);">~/.claude/skills/</code>
+      </div>
+    </div>
+    <div class="machine-card other">
+      <div class="m-tag">NEXT MACHINE</div>
+      <div class="m-name">公司 / 另一台電腦</div>
+      <div class="m-status">
+        × <span class="empty">空的</span><br>
+        登入同一個 Claude 帳號也<span class="fix">需要重裝</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reinstall">
+    <div class="reinstall-label">// 新電腦重裝指令（建議收藏到備忘錄）</div>
+    <div class="reinstall-cmd">npx skills add alchaincyf/huashu-design -g --agent claude-code -y</div>
+    <div class="reinstall-note">指令很短 · 30 秒裝好 · 沒有雲端同步是設計選擇，不是 bug</div>
+  </div>
+
+  <div class="closing-callout">
+    <div class="closing-callout-text">
+      所以今天才幫大家做這個小工具<br>
+      <strong>不用記指令 · 跟著步驟做就能裝</strong>
+    </div>
+    <button class="closing-callout-cta" onclick="parent.postMessage({type:'switch-tab',tab:'install'},'*')">
+      → 點這裡看安裝指南
+    </button>
+  </div>
+
+  <div class="footer">
+    <div class="wordmark">ARTOGO</div>
+    <div class="footer-meta"><span class="current">06</span> / 06</div>
+  </div>
+
+</div>
+</body>
+</html>

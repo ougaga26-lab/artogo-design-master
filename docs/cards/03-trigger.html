@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>03 · 怎麼呼喚技能</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #191919; --bg-container: #353535; --bg-content: #252525;
+    --gold: #ba9972; --gold-light: #ddb586; --gold-pale: #fee3c4;
+    --text: #e7e7e7; --text-secondary: #c4c4c4; --text-tertiary: #858585;
+    --border: #595959; --border-secondary: #4a4a4a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1080px; height: 1080px; background: var(--bg-base);
+    font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+    letter-spacing: 0.05em; line-height: 1.8;
+    color: var(--text); -webkit-font-smoothing: antialiased; overflow: hidden;
+  }
+  .canvas { width: 1080px; height: 1080px; padding: 80px; display: flex; flex-direction: column; position: relative; }
+
+  .header { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 32px; border-bottom: 1px solid var(--border-secondary); }
+  .brand { font-size: 13px; font-weight: 500; letter-spacing: 0.3em; color: var(--gold); }
+  .brand-dot { color: var(--text-tertiary); margin: 0 12px; }
+  .meta { font-family: 'Roboto Mono', monospace; font-size: 12px; color: var(--text-tertiary); letter-spacing: 0.15em; }
+
+  .hero { margin-top: 64px; display: flex; align-items: flex-end; gap: 40px; }
+  .number { font-size: 144px; font-weight: 700; line-height: 0.85; color: var(--gold); letter-spacing: -0.02em; flex-shrink: 0; }
+  .number-line { flex: 1; height: 1px; background: var(--border); margin-bottom: 32px; position: relative; }
+  .number-line::after { content: ''; position: absolute; right: 0; top: -2px; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; }
+
+  .title-block { margin-top: 36px; }
+  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.3em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 14px; }
+  .title { font-family: 'Noto Sans TC', sans-serif; font-size: 44px; font-weight: 700; line-height: 1.3; letter-spacing: 0.02em; color: var(--text); }
+
+  /* ── 反差等式 ── */
+  .equation {
+    margin-top: 48px;
+    padding: 32px 36px;
+    background: var(--bg-container);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+  .equation-row { font-family: 'Noto Sans TC', sans-serif; font-size: 22px; font-weight: 500; line-height: 1.7; color: var(--text); }
+  .equation .lhs { color: var(--gold); font-weight: 700; }
+  .equation .eq { color: var(--gold); margin: 0 14px; font-weight: 400; }
+  .equation .strike { color: var(--text-tertiary); text-decoration: line-through; text-decoration-color: var(--gold); text-decoration-thickness: 1px; }
+  .equation .highlight { color: var(--text); border-bottom: 1px solid var(--gold); padding-bottom: 1px; }
+  .equation-sub { font-size: 14px; color: var(--text-tertiary); margin-top: 12px; line-height: 1.7; }
+
+  /* ── 觸發關鍵字標籤 ── */
+  .triggers-block { margin-top: 36px; }
+  .triggers-label { font-family: 'Roboto Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.3em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 16px; }
+  .triggers {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .tag {
+    padding: 8px 16px;
+    background: var(--bg-container);
+    border: 1px solid var(--border-secondary);
+    border-radius: 999px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+  .tag.featured {
+    background: rgba(186, 153, 114, 0.12);
+    border-color: var(--gold);
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+
+  .body-block { margin-top: 32px; }
+  .body-text { font-family: 'Noto Sans TC', sans-serif; font-size: 16px; line-height: 1.95; color: var(--text-secondary); max-width: 880px; }
+  .body-text strong { color: var(--text); font-weight: 500; }
+
+  .footer { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border-secondary); display: flex; justify-content: space-between; align-items: center; }
+  .wordmark { font-size: 14px; font-weight: 700; letter-spacing: 0.4em; color: var(--text); }
+  .footer-meta { font-family: 'Roboto Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--text-tertiary); }
+  .footer-meta .current { color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <div class="header">
+    <div class="brand">ARTOGO<span class="brand-dot">·</span>NOTES</div>
+    <div class="meta">CLAUDE_SKILLS / Q&amp;A · 2026</div>
+  </div>
+
+  <div class="hero">
+    <div class="number">03</div>
+    <div class="number-line"></div>
+  </div>
+
+  <div class="title-block">
+    <div class="eyebrow">QUESTION THREE</div>
+    <h1 class="title">怎麼「呼喚」技能？</h1>
+  </div>
+
+  <div class="equation">
+    <div class="equation-row">
+      <span class="lhs">呼喚</span>
+      <span class="eq">＝</span>
+      <span class="strike">下指令</span>
+      <span class="eq" style="margin: 0 10px;">→</span>
+      <span class="highlight">不需要呼喚</span>
+    </div>
+    <div class="equation-sub">每個技能有「自我介紹」內含觸發關鍵字 · 你正常講話 Claude 自己會接</div>
+  </div>
+
+  <div class="triggers-block">
+    <div class="triggers-label">// huashu-design 的部分觸發關鍵字</div>
+    <div class="triggers">
+      <span class="tag featured">做原型</span>
+      <span class="tag featured">做動畫</span>
+      <span class="tag">HTML 頁面</span>
+      <span class="tag">設計風格</span>
+      <span class="tag featured">app 原型</span>
+      <span class="tag">可視化</span>
+      <span class="tag">設計變體</span>
+      <span class="tag">交互 demo</span>
+      <span class="tag">幻燈片</span>
+      <span class="tag">UI mockup</span>
+      <span class="tag">推薦風格</span>
+      <span class="tag">配色方案</span>
+    </div>
+  </div>
+
+  <div class="body-block">
+    <p class="body-text">
+      你的需求只要碰到這些字，Claude 就會自動把對應技能拉出來。判斷者是它，不是你——你不用記指令。如果它判斷錯了，可以直接強制：<strong>「請用 huashu-design 這個 skill 幫我做⋯」</strong>
+    </p>
+  </div>
+
+  <div class="footer">
+    <div class="wordmark">ARTOGO</div>
+    <div class="footer-meta"><span class="current">03</span> / 06</div>
+  </div>
+
+</div>
+</body>
+</html>
