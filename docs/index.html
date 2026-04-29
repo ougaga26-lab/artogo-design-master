@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARTOGO Design Master · 公司專屬設計工具</title>
+<meta name="description" content="ARTOGO 公司專屬 Claude Code 設計助手 — 安裝指南 + 應用案例">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-base: #191919;
+    --bg-container: #353535;
+    --bg-content: #252525;
+    --bg-elevated: #2a2a2a;
+    --bg-hover: #4b4b4b;
+    --gold: #ba9972;
+    --gold-light: #ddb586;
+    --gold-pale: #fee3c4;
+    --text: #e7e7e7;
+    --text-secondary: #c4c4c4;
+    --text-tertiary: #858585;
+    --text-disabled: #9a9a9a;
+    --border: #595959;
+    --border-secondary: #4a4a4a;
+    --success: #82d28a;
+    --error: #f36363;
+    --warning: #efce5a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg-base);
+    font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* ─────────────────────── Nav ─────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(25, 25, 25, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .brand-mark {
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.4em;
+    color: var(--text);
+  }
+  .brand-tag {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .nav-tabs {
+    display: flex; gap: 4px;
+  }
+  .nav-tab {
+    padding: 8px 18px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px; font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+  }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active {
+    color: var(--gold);
+    background: rgba(186, 153, 114, 0.08);
+    border-color: var(--gold);
+  }
+
+  /* ─────────────────────── Page common ─────────────────────── */
+  .page { display: none; }
+  .page.active { display: block; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  /* ─────────────────────── Hero (install page) ─────────────────────── */
+  .hero {
+    padding: 80px 0 56px;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .hero-eyebrow {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 56px; font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+  .hero-title .accent { color: var(--gold); }
+  .hero-greeting {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 680px;
+  }
+
+  /* ─────────────────────── Steps ─────────────────────── */
+  .steps {
+    padding: 64px 0 48px;
+  }
+  .section-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 32px; font-weight: 700;
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 32px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Roboto', sans-serif;
+    font-size: 64px; font-weight: 700;
+    line-height: 1;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+  .step-content { padding-top: 8px; }
+  .step-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  .step-desc {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    margin-bottom: 18px;
+  }
+  .step-desc strong { color: var(--text); font-weight: 500; }
+  .step-warn {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(239, 206, 90, 0.12);
+    border: 1px solid var(--warning);
+    border-radius: 3px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    color: var(--warning);
+    margin-top: 4px;
+  }
+
+  /* ─────────────────────── Code block w/ copy ─────────────────────── */
+  .code-block {
+    position: relative;
+    background: var(--bg-content);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+    padding: 18px 64px 18px 22px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14px;
+    color: var(--gold-light);
+    letter-spacing: 0.02em;
+    overflow-x: auto;
+    word-break: break-all;
+    line-height: 1.7;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 12px; right: 12px;
+    padding: 5px 12px;
+    background: var(--bg-container);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .copy-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .copy-btn.copied {
+    background: rgba(130, 210, 138, 0.1);
+    border-color: var(--success);
+    color: var(--success);
+  }
+  .quote-block {
+    background: var(--bg-content);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    padding: 14px 22px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  /* ─────────────────────── CTA card ─────────────────────── */
+  .cta-card {
+    margin: 48px 0 80px;
+    padding: 32px 36px;
+    background: var(--bg-container);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+  .cta-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 18px; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .cta-desc {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.85;
+  }
+
+  /* ─────────────────────── Showcase page ─────────────────────── */
+  .showcase-hero {
+    padding: 64px 0 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .showcase-hero-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 48px; font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  .showcase-hero-title .accent { color: var(--gold); }
+  .showcase-hero-sub {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 720px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+  .hero-media {
+    margin-top: 16px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border-secondary);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .hero-media img { width: 100%; display: block; }
+
+  /* ─────────────────────── Capability table ─────────────────────── */
+  .cap-table-wrap {
+    margin: 56px 0 0;
+    background: var(--bg-container);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .cap-table { width: 100%; border-collapse: collapse; }
+  .cap-table thead th {
+    text-align: left;
+    padding: 14px 22px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    background: var(--bg-content);
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .cap-table thead th + th { border-left: 1px solid var(--border-secondary); }
+  .cap-table tbody td {
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--border-secondary);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  .cap-table tbody tr:last-child td { border-bottom: none; }
+  .cap-table tbody td + td { border-left: 1px solid var(--border-secondary); }
+  .cap-table tbody td:first-child { color: var(--text); font-weight: 500; }
+  .cap-table tbody td:last-child {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--gold);
+    white-space: nowrap;
+    width: 1%;
+  }
+
+  /* ─────────────────────── Showcase grid ─────────────────────── */
+  .showcase-grid {
+    margin: 64px 0 80px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .case {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .case:last-child { border-bottom: none; padding-bottom: 0; }
+  .case-num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: -4px;
+  }
+  .case-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 28px; font-weight: 700;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  .case-desc {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.85;
+  }
+  .case-desc strong { color: var(--text); font-weight: 500; }
+  .case-trigger {
+    margin-top: 16px;
+    padding: 14px 20px;
+    background: var(--bg-content);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+  }
+  .case-trigger-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .case-trigger-text {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .case-media {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border-secondary);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    background: var(--bg-content);
+  }
+  .case-media img { width: 100%; display: block; }
+  .case-media-loading {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-tertiary);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+  }
+
+  /* Wide layout for cases (gif left, text right) */
+  @media (min-width: 880px) {
+    .case {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .case.flip { grid-template-columns: 1fr 1.4fr; }
+    .case.flip .case-media { order: 2; }
+    .case.flip .case-text { order: 1; }
+  }
+
+  /* ─────────────────────── Footer ─────────────────────── */
+  .footer {
+    border-top: 1px solid var(--border-secondary);
+    padding: 32px 0 48px;
+    background: var(--bg-base);
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-brand {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.4em;
+    color: var(--text-tertiary);
+  }
+  .footer-meta {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-tertiary);
+  }
+  .footer-meta a { color: var(--gold); text-decoration: none; }
+  .footer-meta a:hover { text-decoration: underline; }
+
+  /* ─────────────────────── Responsive ─────────────────────── */
+  @media (max-width: 720px) {
+    .nav-inner { padding: 14px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .container { padding: 0 20px; }
+    .hero { padding: 56px 0 40px; }
+    .hero-title { font-size: 38px; }
+    .hero-greeting { font-size: 16px; }
+    .step { grid-template-columns: 60px 1fr; gap: 18px; padding: 28px 0; }
+    .step-num { font-size: 44px; }
+    .step-title { font-size: 18px; }
+    .section-title { font-size: 26px; }
+    .showcase-hero-title { font-size: 32px; }
+    .case-title { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ Nav ═══════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="brand-mark">ARTOGO</span>
+      <span class="brand-tag">Design Master</span>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="install">安裝</button>
+      <button class="nav-tab" data-tab="showcase">應用案例</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ Page 1 · Install ═══════════════════════ -->
+<section class="page active" id="install">
+  <div class="container">
+
+    <div class="hero">
+      <div class="hero-eyebrow">FOR ARTOGO TEAM · 2026</div>
+      <h1 class="hero-title">公司設計工具<br><span class="accent">已準備好</span>給你用</h1>
+      <p class="hero-greeting">嗨～ ARTOGO Design Master 是給公司同事用的設計助手。安裝完後，你可以在 Claude Code 裡直接說「做張海報」「做 PPT」，它就會自動套用 ARTOGO 設計規範把成品交給你。下面是 5 步驟安裝指南，全程約 3 分鐘。</p>
+    </div>
+
+    <div class="steps">
+      <div class="section-label">// 5 STEPS · ABOUT 3 MINUTES</div>
+      <h2 class="section-title">怎麼開始</h2>
+
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3 class="step-title">打開 Claude Code</h3>
+          <p class="step-desc">如果還沒裝 Claude Code，先去 <strong>claude.ai/code</strong> 下載安裝（免費，跟著精靈一路下一步即可）。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3 class="step-title">複製這行指令貼到對話框</h3>
+          <p class="step-desc">在 Claude Code 對話框裡貼下面這行，按 Enter。Claude 會自動下載 skill 到你電腦。</p>
+          <div class="code-block">
+            <span id="install-cmd">請執行：npx skills add ougaga26-lab/artogo-design-master -g --agent claude-code -y</span>
+            <button class="copy-btn" data-copy-target="install-cmd">複製</button>
+          </div>
+          <div class="step-warn" style="margin-top: 14px;">⚠️ Claude 回「安裝完成」<strong>不是結束</strong>—— 這只是把檔案下載到你電腦，還沒設定。<strong>必須繼續做 Step 03-05</strong>，整個流程才算走完。</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3 class="step-title">完全重啟 Claude Code</h3>
+          <p class="step-desc">不是只關視窗——要在工作列右下角的 Claude Code 圖標 <strong>右鍵 → Quit / 結束</strong>，完全關掉它的背景程式，然後重新開啟。</p>
+          <p class="step-desc"><strong>為什麼要重啟？</strong>Claude Code 啟動時會掃描可用的 skill 清單，剛剛新裝的 skill 不重啟它讀不到——下一步打觸發詞就不會有反應。</p>
+          <div class="step-warn">⚠️ 這步省略 = Step 04 一定失敗。是 90% 同事卡關的原因</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3 class="step-title">開新對話打這句話</h3>
+          <p class="step-desc">在 Claude Code 開一個 <strong>全新對話</strong>（不是繼續用舊的），在對話框打下面這句話：</p>
+          <div class="quote-block">我要開始用 ARTOGO 設計工具</div>
+          <p class="step-desc" style="margin-top: 18px;"><strong>打了這句話之後，Claude 會自動接手做以下 4 件事，你只要看著就好：</strong></p>
+          <div style="margin-top: 14px; padding: 20px 24px; background: var(--bg-content); border: 1px solid var(--border-secondary); border-radius: 4px;">
+            <div style="display: grid; gap: 12px; font-family: 'Noto Sans TC', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.6;">
+              <div style="display: flex; gap: 14px; align-items: flex-start;"><span style="color: var(--gold); font-family: 'Roboto Mono', monospace; font-weight: 700; flex-shrink: 0;">①</span><span>檢查你電腦的 Node.js 環境</span></div>
+              <div style="display: flex; gap: 14px; align-items: flex-start;"><span style="color: var(--gold); font-family: 'Roboto Mono', monospace; font-weight: 700; flex-shrink: 0;">②</span><span>自動安裝設計引擎（huashu-design）</span></div>
+              <div style="display: flex; gap: 14px; align-items: flex-start;"><span style="color: var(--gold); font-family: 'Roboto Mono', monospace; font-weight: 700; flex-shrink: 0;">③</span><span>寫入 ARTOGO 設計規範到設定檔</span></div>
+              <div style="display: flex; gap: 14px; align-items: flex-start;"><span style="color: var(--gold); font-family: 'Roboto Mono', monospace; font-weight: 700; flex-shrink: 0;">④</span><span>給你一個熱身任務試手感</span></div>
+            </div>
+          </div>
+          <p class="step-desc" style="margin-top: 14px;">⏱ 全程約 2 分鐘。中間 Claude 如果問你問題，按提示回答即可。<strong>全程不用打複雜指令</strong>。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h3 class="step-title">開始用</h3>
+          <p class="step-desc">設定完成後，之後想做設計直接用日常語言：</p>
+          <div class="quote-block" style="margin-bottom: 8px;">「幫我做下週活動的 IG 封面」</div>
+          <div class="quote-block" style="margin-bottom: 8px;">「做一份提案 PPT 第一頁」</div>
+          <div class="quote-block">「把這段內容做成 6 張多圖」</div>
+          <p class="step-desc" style="margin-top: 14px;">會自動套用 ARTOGO 金棕色 #ba9972 + 深色底 + Roboto/Noto Sans TC 字型。要看 ARTOGO 設計工具能做什麼，點上面的 <strong>應用案例</strong> 分頁。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-card">
+      <h3 class="cta-title">遇到問題？</h3>
+      <p class="cta-desc">直接在 Claude Code 對話框打 <strong>「ARTOGO 跑不起來」</strong> 或 <strong>「重新設定 ARTOGO 設計工具」</strong>，Claude 會帶你疑難排解。還是搞不定？傳訊息給維護者（這個工具是 ARTOGO 內部專屬，不是商業產品，所以靠口耳相傳互相幫忙最快）。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════ Page 2 · Showcase ═══════════════════════ -->
+<section class="page" id="showcase">
+  <div class="container">
+
+    <div class="showcase-hero">
+      <div class="hero-eyebrow">CAPABILITIES · WHAT IT CAN DO</div>
+      <h1 class="showcase-hero-title">一句話 ＝ <span class="accent">一份能交付的設計</span></h1>
+      <p class="showcase-hero-sub">3 到 30 分鐘，你能 ship 一段產品發布動畫、一個能點擊的 App 原型、一套能編輯的 PPT、一份印刷級的信息圖。下面所有 GIF 都是花叔設計引擎跑出來的——不是 Figma，不是 AE，就是一句話 prompt。</p>
+      <div class="hero-media">
+        <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/hero-animation-v10-en.gif" alt="huashu-design Hero animation" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Capability quick table -->
+    <div class="cap-table-wrap">
+      <table class="cap-table">
+        <thead>
+          <tr>
+            <th>能力</th>
+            <th>交付物</th>
+            <th>耗時</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>交互原型（App / Web）</td>
+            <td>單檔 HTML · 真 iPhone bezel · 可點擊 · 自動驗證</td>
+            <td>10–15 min</td>
+          </tr>
+          <tr>
+            <td>演講幻燈片</td>
+            <td>HTML deck（瀏覽器演講）+ 可編輯 PPTX</td>
+            <td>15–25 min</td>
+          </tr>
+          <tr>
+            <td>時間軸動畫</td>
+            <td>MP4（25 / 60 fps）+ GIF + BGM 配樂</td>
+            <td>8–12 min</td>
+          </tr>
+          <tr>
+            <td>設計變體</td>
+            <td>3+ 並排對比 · Tweaks 實時調參</td>
+            <td>10 min</td>
+          </tr>
+          <tr>
+            <td>信息圖 / 可視化</td>
+            <td>印刷級排版 · 可導 PDF / PNG / SVG</td>
+            <td>10 min</td>
+          </tr>
+          <tr>
+            <td>設計方向顧問</td>
+            <td>5 流派 × 20 種設計哲學 · 推薦 3 方向</td>
+            <td>5 min</td>
+          </tr>
+          <tr>
+            <td>5 維度專家評審</td>
+            <td>雷達圖 + Keep / Fix / Quick Wins 清單</td>
+            <td>3 min</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Showcase grid -->
+    <div class="showcase-grid">
+
+      <!-- 01 · iOS Prototype -->
+      <div class="case">
+        <div class="case-media">
+          <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c1-ios-prototype.gif" alt="iOS App 原型 demo" loading="lazy">
+        </div>
+        <div class="case-text">
+          <div class="case-num">CASE 01</div>
+          <h2 class="case-title">iOS App 原型</h2>
+          <p class="case-desc">iPhone 15 Pro 精確機身（靈動島 / 狀態列 / Home Indicator 像素級對齊）· 多屏狀態驅動切換 · 真實圖片從 Wikimedia / Met / Unsplash 自動取 · 交付前自動跑 Playwright 點擊測試。</p>
+          <div class="case-trigger">
+            <div class="case-trigger-label">// 怎麼觸發</div>
+            <div class="case-trigger-text">「做個 AI 番茄鐘 iOS 原型，4 個核心螢幕要真能點擊」</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 · Motion Design -->
+      <div class="case flip">
+        <div class="case-media">
+          <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c3-motion-design.gif" alt="Motion design demo" loading="lazy">
+        </div>
+        <div class="case-text">
+          <div class="case-num">CASE 02</div>
+          <h2 class="case-title">Motion Design 動畫</h2>
+          <p class="case-desc">時間片段模型 · <strong>useTime / useSprite / interpolate / Easing</strong> 四個 API 覆蓋所有動畫需求 · 一句話導出 MP4 / GIF / 60fps 插幀 / 帶 BGM 的成片，用於發布、宣傳、社群。</p>
+          <div class="case-trigger">
+            <div class="case-trigger-label">// 怎麼觸發</div>
+            <div class="case-trigger-text">「把這段邏輯做成 60 秒動畫，導出 MP4 和 GIF」</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 · Slides → PPTX -->
+      <div class="case">
+        <div class="case-media">
+          <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c2-slides-pptx.gif" alt="HTML to PPTX demo" loading="lazy">
+        </div>
+        <div class="case-text">
+          <div class="case-num">CASE 03</div>
+          <h2 class="case-title">HTML 幻燈片 → 可編輯 PPTX</h2>
+          <p class="case-desc">HTML deck 在瀏覽器演講（鍵盤翻頁 / 全屏 / 計時器） · 同時導出 <strong>真實的 PowerPoint 文字框</strong>，PPT 裡雙擊就能編輯。簡報修改不用回到 Claude，直接在 PPT 改字。</p>
+          <div class="case-trigger">
+            <div class="case-trigger-label">// 怎麼觸發</div>
+            <div class="case-trigger-text">「做一份 12 頁的 Q2 規劃 PPT，最後導出 PPTX 給我」</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 · Tweaks -->
+      <div class="case flip">
+        <div class="case-media">
+          <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c4-tweaks.gif" alt="Tweaks demo" loading="lazy">
+        </div>
+        <div class="case-text">
+          <div class="case-num">CASE 04</div>
+          <h2 class="case-title">Tweaks 實時變體切換</h2>
+          <p class="case-desc">配色 / 字型 / 信息密度等參數化，**側邊面板即時切換**對比效果。瀏覽器存 localStorage，刷新不丟。設計階段 review 利器，老闆喜歡哪個版本一鍵切換。</p>
+          <div class="case-trigger">
+            <div class="case-trigger-label">// 怎麼觸發</div>
+            <div class="case-trigger-text">「給我這個 landing page 三個配色變體，可以切換」</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 · Infographic -->
+      <div class="case">
+        <div class="case-media">
+          <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c5-infographic.gif" alt="Infographic demo" loading="lazy">
+        </div>
+        <div class="case-text">
+          <div class="case-num">CASE 05</div>
+          <h2 class="case-title">信息圖 / 數據可視化</h2>
+          <p class="case-desc">雜誌級排版 · CSS Grid 精準分欄 · 排印細節（text-wrap pretty / 全形引號 / letter-spacing 分層） · 真數據驅動 · 可導出 PDF 矢量 / PNG 300dpi / SVG。</p>
+          <div class="case-trigger">
+            <div class="case-trigger-label">// 怎麼觸發</div>
+            <div class="case-trigger-text">「把這份營收數據做成一張 A4 直式信息圖」</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 · Expert Review -->
+      <div class="case flip">
+        <div class="case-media">
+          <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/c6-expert-review.gif" alt="Expert review demo" loading="lazy">
+        </div>
+        <div class="case-text">
+          <div class="case-num">CASE 06</div>
+          <h2 class="case-title">5 維度專家評審</h2>
+          <p class="case-desc">設計做完不確定好不好？讓 Master 從 5 個維度打分——<strong>哲學一致性 / 視覺層級 / 細節執行 / 功能性 / 創新性</strong>，各 0–10 分。輸出雷達圖 + Keep / Fix / Quick Wins 清單。</p>
+          <div class="case-trigger">
+            <div class="case-trigger-label">// 怎麼觸發</div>
+            <div class="case-trigger-text">「幫我對這個設計做 5 維度評審，給我修復清單」</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 07 · Design Direction Advisor -->
+      <div class="case">
+        <div class="case-media">
+          <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/w3-fallback-advisor.gif" alt="Design advisor demo" loading="lazy">
+        </div>
+        <div class="case-text">
+          <div class="case-num">CASE 07</div>
+          <h2 class="case-title">設計方向顧問</h2>
+          <p class="case-desc">不知道要什麼風格？這個 Master 內建 <strong>5 流派 × 20 種設計哲學</strong>（信息建築 / 運動詩學 / 極簡 / 實驗先鋒 / 東方哲學）。它會推薦 3 個差異化方向，並行生成 3 個 Demo 讓你對比選擇。</p>
+          <div class="case-trigger">
+            <div class="case-trigger-label">// 怎麼觸發</div>
+            <div class="case-trigger-text">「我要做品牌 landing page，推薦 3 個風格方向讓我選」</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08 · Junior Designer -->
+      <div class="case flip">
+        <div class="case-media">
+          <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/w2-junior-designer.gif" alt="Junior designer workflow demo" loading="lazy">
+        </div>
+        <div class="case-text">
+          <div class="case-num">CASE 08</div>
+          <h2 class="case-title">Junior Designer 工作流</h2>
+          <p class="case-desc">Master 不會閉門造大招。**先寫 assumptions + placeholders + reasoning，盡早 show 給你**，等你點頭再迭代。理解錯了早改比晚改便宜 100 倍——這是 ARTOGO 工作流的核心原則。</p>
+          <div class="case-trigger">
+            <div class="case-trigger-label">// 自動觸發</div>
+            <div class="case-trigger-text">每次設計任務都會自動套用，不需要特別講</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 09 · Brand Protocol -->
+      <div class="case">
+        <div class="case-media">
+          <img src="https://github.com/alchaincyf/huashu-design/releases/download/v2.0/w1-brand-protocol.gif" alt="Brand asset protocol demo" loading="lazy">
+        </div>
+        <div class="case-text">
+          <div class="case-num">CASE 09</div>
+          <h2 class="case-title">品牌資產協議</h2>
+          <p class="case-desc">做別家公司的設計（合作夥伴 / 客戶提案）時，Master 會自動執行 5 步資產協議：<strong>問 → 搜官網 → 下載 logo / 產品圖 / UI → 抽色值 → 寫 brand-spec.md</strong>。確保產出真的「像那個品牌」，不是套通用模板。</p>
+          <div class="case-trigger">
+            <div class="case-trigger-label">// 怎麼觸發</div>
+            <div class="case-trigger-text">「做一份給 [客戶名] 的提案 PPT」（會自動觸發協議）</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cta-card">
+      <h3 class="cta-title">準備好開始了嗎？</h3>
+      <p class="cta-desc">回到 <strong>安裝</strong> 分頁，跟著 5 步驟做完，3 分鐘後就能在 Claude Code 裡跑這些能力。所有產出都會自動套上 ARTOGO 設計規範（金棕色 + 深色 + Roboto / Noto Sans TC），公司視覺一致性自動保證。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════ Footer ═══════════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">ARTOGO · 2026</div>
+    <div class="footer-meta">
+      Built on
+      <a href="https://github.com/alchaincyf/huashu-design" target="_blank" rel="noopener">huashu-design</a>
+      · Powered by
+      <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ─────────────── Tab switching ───────────────
+  const tabs = document.querySelectorAll('.nav-tab');
+  const pages = document.querySelectorAll('.page');
+
+  function switchTab(target) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === target));
+    pages.forEach(p => p.classList.toggle('active', p.id === target));
+    // Update URL hash
+    if (window.location.hash !== '#' + target) {
+      history.replaceState(null, '', '#' + target);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+  });
+
+  // Initial load: respect URL hash
+  const initialHash = window.location.hash.replace('#', '');
+  if (initialHash === 'showcase') switchTab('showcase');
+
+  // ─────────────── Copy button ───────────────
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.dataset.copyTarget;
+      const text = document.getElementById(targetId).textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = '已複製 ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch (e) {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        btn.textContent = '已複製 ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '複製';
+          btn.classList.remove('copied');
+        }, 2000);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
