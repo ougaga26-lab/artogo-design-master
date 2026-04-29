@@ -354,6 +354,70 @@
   .skill-tag-text { color: var(--text-secondary); }
   .skill-tag-name { color: var(--gold); font-weight: 500; }
 
+  /* Chat mockup (Claude Code 對話框示意) */
+  .chat-mockup {
+    margin: 14px 0 10px;
+    padding: 14px 14px 16px;
+    background: var(--bg-content);
+    border: 1px dashed var(--border-secondary);
+    border-radius: 6px;
+    max-width: 540px;
+  }
+  .chat-mockup-folders {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .chat-mockup-arrow {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 12px;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    margin-left: 4px;
+  }
+  .chat-mockup-input {
+    padding: 14px 16px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
+  .chat-mockup-caption {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.25em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  /* Trigger word pills */
+  .trigger-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 6px;
+  }
+  .trigger-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    background: rgba(186, 153, 114, 0.08);
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
   /* Success message (light green) */
   .success-msg {
     display: inline-block;
@@ -376,18 +440,29 @@
     justify-content: space-between;
     width: 100%;
     max-width: 540px;
-    margin-top: 28px;
-    padding: 20px 26px;
-    background: var(--bg-content);
+    margin-top: 32px;
+    padding: 22px 28px;
+    background: var(--gold);
     border: 1px solid var(--gold);
     border-radius: 4px;
     font-family: 'Noto Sans TC', sans-serif;
     text-align: left;
     cursor: pointer;
-    transition: all 0.2s ease-out;
+    box-shadow:
+      0 0 0 1px rgba(186, 153, 114, 0.4),
+      0 0 32px rgba(186, 153, 114, 0.45),
+      0 0 64px rgba(186, 153, 114, 0.18),
+      0 4px 16px rgba(186, 153, 114, 0.25);
+    transition: all 0.25s ease-out;
   }
   .btn-explore:hover {
-    background: rgba(186, 153, 114, 0.12);
+    background: var(--gold-light);
+    transform: translateY(-1px);
+    box-shadow:
+      0 0 0 1px rgba(221, 181, 134, 0.5),
+      0 0 44px rgba(221, 181, 134, 0.6),
+      0 0 88px rgba(221, 181, 134, 0.3),
+      0 6px 24px rgba(186, 153, 114, 0.35);
   }
   .btn-explore-text {
     display: flex;
@@ -395,21 +470,22 @@
     gap: 6px;
   }
   .btn-explore-title {
-    font-size: 17px; font-weight: 700;
-    color: var(--text);
+    font-size: 18px; font-weight: 700;
+    color: #191919;
     letter-spacing: 0.02em;
     line-height: 1.4;
   }
   .btn-explore-sub {
     font-family: 'Noto Sans TC', sans-serif;
     font-size: 13px;
-    color: var(--text-tertiary);
+    color: rgba(25, 25, 25, 0.7);
     letter-spacing: 0.05em;
+    font-weight: 500;
   }
   .btn-explore-arrow {
     font-family: 'Roboto', sans-serif;
-    font-size: 24px; font-weight: 400;
-    color: var(--gold);
+    font-size: 26px; font-weight: 500;
+    color: #191919;
     margin-left: 24px;
     transition: transform 0.25s ease-out;
     flex-shrink: 0;
@@ -728,11 +804,15 @@
             <div class="substep-num">①</div>
             <div class="substep-content">
               <h4 class="substep-title">先指定本次的工作資料夾</h4>
-              <p class="substep-desc">在 Claude Code 對話框上方點資料夾名稱，<strong>切到你這次要存產出檔案的位置</strong>。</p>
-              <div class="ui-mockup">
-                <span class="ui-mockup-label">在 Claude Code 中</span>
-                <span class="folder-pill"><span class="folder-icon"></span>Local</span>
-                <span class="folder-pill active"><span class="folder-icon"></span>Design test</span>
+              <p class="substep-desc">在 Claude Code <strong>對話框上方</strong>點資料夾名稱，切到你這次要存產出檔案的位置。</p>
+              <div class="chat-mockup">
+                <div class="chat-mockup-folders">
+                  <span class="folder-pill"><span class="folder-icon"></span>Local</span>
+                  <span class="folder-pill active"><span class="folder-icon"></span>Design test</span>
+                  <span class="chat-mockup-arrow">← 點這裡切換</span>
+                </div>
+                <div class="chat-mockup-input">Describe a task or ask a question...</div>
+                <div class="chat-mockup-caption">// Claude Code 對話框</div>
               </div>
               <div class="step-warn">⚠️ 沒指定資料夾，生成的檔案會跑到奇怪的位置，等你要找的時候找不到</div>
             </div>
@@ -744,12 +824,14 @@
             <div class="substep-content">
               <h4 class="substep-title">呼叫 ARTOGO 設計大師</h4>
               <p class="substep-desc">在對話框打 <strong>下面任一句話</strong> 都會觸發：</p>
-              <div class="quote-block" style="margin-bottom: 6px;">ARTOGO Design Master</div>
-              <div class="quote-block" style="margin-bottom: 6px;">ARTOGO 設計</div>
-              <div class="quote-block">ARTOGO 設計大師</div>
-              <p class="substep-desc" style="margin-top: 16px;">送出後看訊息<strong>頂部</strong>，應該會出現這個標籤：</p>
+              <div class="trigger-pills">
+                <span class="trigger-pill">ARTOGO Design Master</span>
+                <span class="trigger-pill">ARTOGO 設計</span>
+                <span class="trigger-pill">ARTOGO 設計大師</span>
+              </div>
+              <p class="substep-desc" style="margin-top: 16px;">送出後 Claude 會回覆，<strong>回覆訊息的最上方</strong>會出現這個標籤：</p>
               <div class="ui-mockup">
-                <span class="ui-mockup-label">訊息頂部</span>
+                <span class="ui-mockup-label">回覆訊息上方</span>
                 <span class="skill-tag">
                   <span class="skill-tag-icon">›</span>
                   <span class="skill-tag-text">Ran skill</span>
