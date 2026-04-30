@@ -838,6 +838,7 @@
     color: var(--text);
     letter-spacing: 0.02em;
   }
+  .update-cta-title .accent { color: var(--gold); }
   .update-cta-desc {
     font-family: 'Noto Sans TC', sans-serif;
     font-size: 14px;
@@ -848,29 +849,33 @@
 
   /* Log entries */
   .log-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     margin: 0 0 80px;
   }
   .log-entry {
-    padding: 48px 0;
-    border-bottom: 1px solid var(--border-secondary);
+    padding: 24px 28px 26px;
+    background: var(--bg-content);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
   }
-  .log-entry:last-child { border-bottom: none; }
-  .log-head { margin-bottom: 28px; }
+  .log-head { margin-bottom: 16px; }
   .log-year {
     font-family: 'Roboto Mono', monospace;
-    font-size: 12px; font-weight: 500;
+    font-size: 11px; font-weight: 500;
     letter-spacing: 0.3em;
     color: var(--text-tertiary);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
   .log-day-rule {
     display: flex;
     align-items: baseline;
-    gap: 20px;
+    gap: 16px;
   }
   .log-day {
     font-family: 'Roboto', sans-serif;
-    font-size: 64px; font-weight: 700;
+    font-size: 32px; font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--gold);
     line-height: 1;
@@ -883,27 +888,27 @@
   }
   .log-title {
     font-family: 'Noto Sans TC', sans-serif;
-    font-size: 24px; font-weight: 700;
+    font-size: 17px; font-weight: 700;
     letter-spacing: 0.02em;
-    margin-bottom: 8px;
     color: var(--text);
+    margin-bottom: 4px;
   }
   .log-items {
     list-style: none;
-    margin-top: 20px;
+    margin-top: 12px;
   }
   .log-item {
     display: flex;
     align-items: baseline;
-    gap: 24px;
-    padding: 16px 0;
+    gap: 20px;
+    padding: 9px 0;
     border-top: 1px dashed var(--border-secondary);
     font-family: 'Noto Sans TC', sans-serif;
   }
   .log-tech {
     flex: 1;
     text-align: right;
-    font-size: 14px;
+    font-size: 12.5px;
     color: var(--text-tertiary);
     letter-spacing: 0.05em;
     line-height: 1.5;
@@ -911,22 +916,23 @@
   .log-arrow {
     flex-shrink: 0;
     font-family: 'Roboto Mono', monospace;
-    font-size: 16px; font-weight: 500;
+    font-size: 13px; font-weight: 500;
     color: var(--gold);
   }
   .log-plain {
     flex: 1.3;
-    font-size: 16px;
+    font-size: 14px;
     color: var(--text);
     font-weight: 500;
     letter-spacing: 0.03em;
-    line-height: 1.6;
+    line-height: 1.55;
   }
 
   @media (max-width: 720px) {
     .changelog-hero-title { font-size: 32px; }
-    .log-day { font-size: 44px; }
-    .log-title { font-size: 20px; }
+    .log-entry { padding: 20px 22px 22px; }
+    .log-day { font-size: 26px; }
+    .log-title { font-size: 16px; }
     .log-item {
       flex-direction: column;
       align-items: flex-start;
@@ -934,10 +940,10 @@
     }
     .log-tech {
       text-align: left;
-      font-size: 13px;
+      font-size: 12px;
     }
     .log-arrow { display: none; }
-    .log-plain { font-size: 15px; }
+    .log-plain { font-size: 14px; }
   }
 
   /* ─────────────────────── Footer ─────────────────────── */
@@ -1420,7 +1426,7 @@
 
     <div class="update-cta">
       <div class="update-cta-label">// HOW TO UPDATE</div>
-      <h2 class="update-cta-title">想拿到所有更新？跑這條</h2>
+      <h2 class="update-cta-title">想拿到所有更新？在 <span class="accent">Claude Code</span> 跑這條</h2>
       <div class="code-block">
         <span id="update-cmd">npx skills update artogo-design-master</span>
         <button class="copy-btn" data-copy-target="update-cmd">複製</button>
