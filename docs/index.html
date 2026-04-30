@@ -187,6 +187,282 @@
     margin-top: 4px;
   }
 
+  /* ─────────────────────── Step 00 · prereq elements ─────────────────────── */
+  .step-eyebrow {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* OS-specific terminal instructions */
+  .os-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .os-block {
+    padding: 18px 22px;
+    background: var(--bg-content);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+    border-top: 2px solid var(--gold);
+  }
+  .os-block-tag {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .os-block-list {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    list-style: none;
+    counter-reset: os-step;
+  }
+  .os-block-list li {
+    position: relative;
+    padding-left: 22px;
+    padding-bottom: 6px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .os-block-list li::before {
+    counter-increment: os-step;
+    content: counter(os-step);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .os-block-list li:last-child { padding-bottom: 0; }
+  .os-block-list code {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    background: rgba(186, 153, 114, 0.1);
+    padding: 1px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+  }
+
+  /* keyboard key visual */
+  kbd {
+    display: inline-block;
+    padding: 1px 8px;
+    margin: 0 2px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    letter-spacing: 0.03em;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    line-height: 1.4;
+  }
+
+  /* Outcome boxes (success / miss) */
+  .outcome {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 18px;
+    background: var(--bg-content);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+    margin-top: 10px;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  .outcome.ok {
+    border-color: var(--success);
+    background: rgba(130, 210, 138, 0.06);
+  }
+  .outcome.miss {
+    border-color: var(--warning);
+    background: rgba(239, 206, 90, 0.06);
+  }
+  .outcome-tag {
+    flex-shrink: 0;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    padding: 4px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .outcome.ok .outcome-tag {
+    background: rgba(130, 210, 138, 0.15);
+    color: var(--success);
+  }
+  .outcome.miss .outcome-tag {
+    background: rgba(239, 206, 90, 0.15);
+    color: var(--warning);
+  }
+  .outcome-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.65;
+    letter-spacing: 0.03em;
+  }
+  .outcome-text code {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12.5px;
+    color: var(--gold);
+    background: rgba(186, 153, 114, 0.1);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  /* Install ordered list */
+  .install-list {
+    margin-top: 6px;
+    list-style: none;
+    counter-reset: install-step;
+  }
+  .install-list li {
+    position: relative;
+    padding-left: 28px;
+    padding-bottom: 12px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    letter-spacing: 0.03em;
+  }
+  .install-list li:last-child { padding-bottom: 0; }
+  .install-list li::before {
+    counter-increment: install-step;
+    content: counter(install-step);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-family: 'Roboto Mono', monospace;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .install-list li strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* nodejs.org dropdown row mockup */
+  .dropdown-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 16px;
+    background: var(--bg-content);
+    border: 1px dashed var(--border-secondary);
+    border-radius: 6px;
+    margin: 12px 0 10px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+  }
+  .dropdown-label {
+    color: var(--text-secondary);
+    letter-spacing: 0.03em;
+  }
+  .dropdown-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .dropdown-arrow {
+    color: var(--text-tertiary);
+    font-size: 10px;
+    margin-left: 2px;
+  }
+  .lts-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    background: rgba(91, 169, 240, 0.18);
+    border-radius: 999px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #5ba9f0;
+    letter-spacing: 0.08em;
+    margin-left: 4px;
+  }
+  .dropdown-check {
+    list-style: none;
+    margin-top: 4px;
+    padding-left: 4px;
+  }
+  .dropdown-check li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 4px 0;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .dropdown-check li strong { color: var(--text); }
+  .check-yes {
+    flex-shrink: 0;
+    color: var(--success);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    width: 14px;
+  }
+  .check-skip {
+    flex-shrink: 0;
+    color: var(--text-tertiary);
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    width: 14px;
+    text-align: center;
+  }
+
+  /* install-list inline code */
+  .install-list code,
+  .install-note code {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    background: rgba(186, 153, 114, 0.1);
+    padding: 1px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+  }
+  .install-list a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 1px;
+    word-break: break-all;
+  }
+  .install-list a:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
+  @media (max-width: 720px) {
+    .os-grid { grid-template-columns: 1fr; }
+    .dropdown-row { font-size: 12px; }
+  }
+
   /* ─────────────────────── Code block w/ copy ─────────────────────── */
   .code-block {
     position: relative;
@@ -1079,12 +1355,105 @@
       <div class="hero-eyebrow">FOR ARTOGO TEAM · 2026</div>
       <h1 class="hero-title">你的 ARTOGO 設計大師<br><span class="accent">已上線</span> 準備好給你用</h1>
       <p class="hero-greeting">嗨～ ARTOGO Design Master 是給公司同事用的設計助手Skill。<br>安裝Skill完後，你可以在 Claude Code 裡直接說「<strong>ARTOGO 設計大師</strong>」，它就會自動啟用該 skill，並套用 ARTOGO 設計規範把成品交給你。</p>
-      <p class="hero-greeting" style="margin-top: 16px;">下面是 <strong>5 步驟安裝指南</strong>，全程約 3 分鐘。</p>
+      <p class="hero-greeting" style="margin-top: 16px;">下面是 <strong>前置作業 + 5 步驟安裝</strong>，全程約 5 分鐘（如果還沒裝 Node.js 會多一點點時間）。</p>
     </div>
 
     <div class="steps">
       <div class="section-label">// 5 STEPS · ABOUT 3 MINUTES</div>
       <h2 class="section-title">怎麼開始</h2>
+
+      <div class="step">
+        <div class="step-num">00</div>
+        <div class="step-content">
+          <div class="step-eyebrow">PREREQUISITE · 開始前先做</div>
+          <h3 class="step-title">前置作業 — 確認電腦有 Node.js</h3>
+          <p class="step-desc">後面 Step 02 的 npx 指令需要 <strong>Node.js</strong> 才能跑（npx 是 Node.js 提供的工具）。先檢查你電腦有沒有，沒有的話這邊裝起來。</p>
+
+          <!-- 子步驟 ① 開終端機 -->
+          <div class="substep">
+            <div class="substep-num">①</div>
+            <div class="substep-content">
+              <h4 class="substep-title">打開終端機（Terminal）</h4>
+              <p class="substep-desc">「終端機」是用來打電腦指令的小視窗，平常你用不到。<strong>跟著下面操作開出來</strong>：</p>
+              <div class="os-grid">
+                <div class="os-block">
+                  <div class="os-block-tag">// WINDOWS</div>
+                  <ul class="os-block-list">
+                    <li>同時按 <kbd>Win</kbd> + <kbd>R</kbd>（左下角 Windows logo 鍵 + R）</li>
+                    <li>跳出小框框，輸入 <code>cmd</code></li>
+                    <li>按 <kbd>Enter</kbd>，黑色視窗會跳出來</li>
+                  </ul>
+                </div>
+                <div class="os-block">
+                  <div class="os-block-tag">// MAC</div>
+                  <ul class="os-block-list">
+                    <li>同時按 <kbd>⌘ Cmd</kbd> + <kbd>空白</kbd></li>
+                    <li>跳出搜尋框，輸入 <code>terminal</code></li>
+                    <li>按 <kbd>Enter</kbd>，視窗會跳出來</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 子步驟 ② 檢查 -->
+          <div class="substep">
+            <div class="substep-num">②</div>
+            <div class="substep-content">
+              <h4 class="substep-title">檢查你電腦有沒有 Node.js</h4>
+              <p class="substep-desc">在剛剛打開的終端機，<strong>貼下面這行</strong>，然後按 <kbd>Enter</kbd>：</p>
+              <div class="code-block">
+                <span id="check-node">node --version</span>
+                <button class="copy-btn" data-copy-target="check-node">複製</button>
+              </div>
+              <p class="substep-desc" style="margin-top: 16px;"><strong>看終端機怎麼回你</strong>：</p>
+              <div class="outcome ok">
+                <span class="outcome-tag">✓ 已有</span>
+                <span class="outcome-text">出現一行版本號（例如 <code>v20.10.0</code>）<br><strong>跳過子步驟 ③，直接做 Step 01</strong></span>
+              </div>
+              <div class="outcome miss">
+                <span class="outcome-tag">✕ 沒裝</span>
+                <span class="outcome-text">出現英文錯誤（例如 <code>'node' is not recognized</code> 或 <code>command not found</code>）<br><strong>繼續做子步驟 ③ 安裝</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 子步驟 ③ 安裝 -->
+          <div class="substep">
+            <div class="substep-num">③</div>
+            <div class="substep-content">
+              <h4 class="substep-title">安裝 Node.js（沒裝才做）</h4>
+              <p class="substep-desc">跟著下面 8 步：</p>
+              <ol class="install-list">
+                <li>用瀏覽器打開 <a href="https://nodejs.org/zh-tw" target="_blank" rel="noopener">https://nodejs.org/zh-tw</a></li>
+                <li>點頁面中間 <strong>綠色「Get Node.js®」</strong> 大按鈕（跟網站主色一樣）</li>
+                <li>跳到下載頁，先看<strong>最上方一排設定</strong>，確認三個 dropdown：
+                  <div class="dropdown-row">
+                    <span class="dropdown-label">取得適用於</span>
+                    <span class="dropdown-pill">Windows<span class="dropdown-arrow">▾</span></span>
+                    <span class="dropdown-label">的 Node.js®</span>
+                    <span class="dropdown-pill">v24.15.0<span class="lts-badge">LTS</span><span class="dropdown-arrow">▾</span></span>
+                  </div>
+                  <ul class="dropdown-check">
+                    <li><span class="check-yes">✓</span> <strong>取得適用於</strong>：你的作業系統（Windows 或 macOS）</li>
+                    <li><span class="check-yes">✓</span> <strong>的 Node.js®</strong>：要看到藍色 <strong>LTS</strong> 標籤</li>
+                    <li><span class="check-skip">·</span> <strong>透過 / 包含</strong>：不用動</li>
+                  </ul>
+                </li>
+                <li>中間有一段<strong>黑底程式碼</strong> → 不用管它，繼續往下捲</li>
+                <li>看到「<strong>或者取得適用於 [你的 OS] 平台的 Node.js® 組建</strong>」這段，點：<br>
+                  · Windows 同事 → 綠色 <strong>Windows 安裝程式 (.msi)</strong><br>
+                  · Mac 同事 → 綠色 <strong>macOS Installer (.pkg)</strong></li>
+                <li>下載完成後 <strong>雙擊安裝檔</strong>，安裝精靈會跳出來，一路按 <strong>下一步 / Next / 同意條款</strong>（預設都不用改）</li>
+                <li>裝完後 <strong>關掉終端機</strong>（叉叉關掉），重新打開一次（讓系統認得新裝的 Node）</li>
+                <li>回到子步驟 ② 再跑一次 <code>node --version</code>，這次會看到版本號</li>
+              </ol>
+              <div class="step-warn" style="margin-top: 14px;">⚠️ 安裝完一定要關掉終端機重開，不然 <code>node --version</code> 還是會說沒裝</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
       <div class="step">
         <div class="step-num">01</div>
@@ -1551,7 +1920,70 @@
 
     <div class="log-list">
 
-      <!-- ─────────── 2026-04-30 ─────────── -->
+      <!-- ─────────── 2026-04-30 · 安裝前置作業 ─────────── -->
+      <article class="log-entry">
+        <header class="log-head">
+          <div class="log-year">2026</div>
+          <div class="log-day-rule">
+            <span class="log-day">04.30</span>
+            <span class="log-rule"></span>
+          </div>
+        </header>
+        <h3 class="log-title">新增 Step 00 前置作業 — Node.js 引導</h3>
+        <ul class="log-items">
+          <li class="log-item">
+            <span class="log-tech">在 Step 01 之前插入「前置作業」步驟</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">同事不會卡在 Step 02 的 npx 指令跑不起來</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tech">拆解開終端機操作（Windows + Mac 雙路徑）</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">不懂技術也能照著按 Win+R 或 Cmd+空白</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tech">node --version 檢查 + ✓/✕ 結果分流引導</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">有 Node 直接跳過、沒有就帶他裝</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tech">nodejs.org 下載頁 dropdown mockup</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">照著做就不會點錯版本或按錯下載按鈕</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- ─────────── 2026-04-30 · 了解 Skill 補充章節 ─────────── -->
+      <article class="log-entry">
+        <header class="log-head">
+          <div class="log-year">2026</div>
+          <div class="log-day-rule">
+            <span class="log-day">04.30</span>
+            <span class="log-rule"></span>
+          </div>
+        </header>
+        <h3 class="log-title">「了解 Skill」分頁加入深入篇 6 卡</h3>
+        <ul class="log-items">
+          <li class="log-item">
+            <span class="log-tech">原本 6 卡（核心概念）下方加「補充章節」區塊</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">日後新主題可以一節一節疊上去，不亂動原來的</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tech">新卡 07–12 解釋 Skill 兩種類型 + 為何只在 Code</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">同事看完知道為什麼 Chat / Cowork 沒反應</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tech">同事安裝流程 + 衍生影響 + 路徑分流總結</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">用對工具、在對的地方做對的事</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- ─────────── 2026-04-30 · ADS v3.0 ─────────── -->
       <article class="log-entry">
         <header class="log-head">
           <div class="log-year">2026</div>
