@@ -791,6 +791,155 @@
     .carousel-slide { transform: scale(0.259); }
   }
 
+  /* ─────────────────────── Changelog page ─────────────────────── */
+  .changelog-hero {
+    padding: 64px 0 24px;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .changelog-hero-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 48px; font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  .changelog-hero-title .accent { color: var(--gold); }
+  .changelog-hero-sub {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 720px;
+    line-height: 1.7;
+  }
+
+  /* Update CTA at top */
+  .update-cta {
+    margin: 48px 0 64px;
+    padding: 32px 36px;
+    background: linear-gradient(135deg, rgba(186,153,114,0.14) 0%, rgba(186,153,114,0.04) 100%);
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    box-shadow:
+      0 0 0 1px rgba(186, 153, 114, 0.15),
+      0 4px 24px rgba(186, 153, 114, 0.12);
+  }
+  .update-cta-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .update-cta-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 18px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .update-cta-desc {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 14px;
+    line-height: 1.7;
+  }
+
+  /* Log entries */
+  .log-list {
+    margin: 0 0 80px;
+  }
+  .log-entry {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .log-entry:last-child { border-bottom: none; }
+  .log-head { margin-bottom: 28px; }
+  .log-year {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--text-tertiary);
+    margin-bottom: 4px;
+  }
+  .log-day-rule {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+  .log-day {
+    font-family: 'Roboto', sans-serif;
+    font-size: 64px; font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .log-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border-secondary);
+  }
+  .log-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 24px; font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .log-items {
+    list-style: none;
+    margin-top: 20px;
+  }
+  .log-item {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    padding: 16px 0;
+    border-top: 1px dashed var(--border-secondary);
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  .log-tech {
+    flex: 1;
+    text-align: right;
+    font-size: 14px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+  }
+  .log-arrow {
+    flex-shrink: 0;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px; font-weight: 500;
+    color: var(--gold);
+  }
+  .log-plain {
+    flex: 1.3;
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 720px) {
+    .changelog-hero-title { font-size: 32px; }
+    .log-day { font-size: 44px; }
+    .log-title { font-size: 20px; }
+    .log-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .log-tech {
+      text-align: left;
+      font-size: 13px;
+    }
+    .log-arrow { display: none; }
+    .log-plain { font-size: 15px; }
+  }
+
   /* ─────────────────────── Footer ─────────────────────── */
   .footer {
     border-top: 1px solid var(--border-secondary);
@@ -845,6 +994,7 @@
       <button class="nav-tab active" data-tab="install">安裝</button>
       <button class="nav-tab" data-tab="showcase">應用案例</button>
       <button class="nav-tab" data-tab="learn">了解 Skill</button>
+      <button class="nav-tab" data-tab="changelog">版本更新</button>
     </div>
   </div>
 </nav>
@@ -1258,6 +1408,67 @@
   </div>
 </section>
 
+<!-- ═══════════════════════ Page 4 · Changelog ═══════════════════════ -->
+<section class="page" id="changelog">
+  <div class="container">
+
+    <div class="changelog-hero">
+      <div class="hero-eyebrow">CHANGELOG · WHAT'S NEW</div>
+      <h1 class="changelog-hero-title">版本更新 <span class="accent">紀錄</span></h1>
+      <p class="changelog-hero-sub">這個 skill 會持續疊代——設計規範變、流程優化、新增功能。看到下面有新東西，跑一條指令就能拿到最新版。</p>
+    </div>
+
+    <div class="update-cta">
+      <div class="update-cta-label">// HOW TO UPDATE</div>
+      <h2 class="update-cta-title">想拿到所有更新？跑這條</h2>
+      <div class="code-block">
+        <span id="update-cmd">npx skills update artogo-design-master</span>
+        <button class="copy-btn" data-copy-target="update-cmd">複製</button>
+      </div>
+      <p class="update-cta-desc">在 Claude Code 對話框貼上這行 → 按 Enter → 等它跑完 → <strong>完全重啟 Claude Code</strong>。下次新對話自動是最新版。</p>
+    </div>
+
+    <div class="log-list">
+
+      <!-- ─────────── 2026-04-30 ─────────── -->
+      <article class="log-entry">
+        <header class="log-head">
+          <div class="log-year">2026</div>
+          <div class="log-day-rule">
+            <span class="log-day">04.30</span>
+            <span class="log-rule"></span>
+          </div>
+        </header>
+        <h3 class="log-title">同步 ADS 設計系統 v3.0</h3>
+        <ul class="log-items">
+          <li class="log-item">
+            <span class="log-tech">色彩升級成 ads/ 語意 token（251 → 58 個語意層）</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">色號跟設計師畫稿同步，不會再用近似色</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tech">Typography 改用 Display / Headline / Title 系統</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">字級規格更完整，標題到內文層次更乾淨</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tech">加入完整 Elevation 5 層級陰影</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">卡片、Modal、Popover 陰影規範化</span>
+          </li>
+          <li class="log-item">
+            <span class="log-tech">SKILL.md 加入 Notion ADS 即時讀取機制</span>
+            <span class="log-arrow">→</span>
+            <span class="log-plain">設計師更新規範你會自動拿到（需 Notion MCP）</span>
+          </li>
+        </ul>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
 <!-- ═══════════════════════ Footer ═══════════════════════ -->
 <footer class="footer">
   <div class="footer-inner">
@@ -1297,7 +1508,7 @@
 
   // Initial load: respect URL hash
   const initialHash = window.location.hash.replace('#', '');
-  if (initialHash === 'showcase' || initialHash === 'learn') switchTab(initialHash);
+  if (['showcase', 'learn', 'changelog'].includes(initialHash)) switchTab(initialHash);
 
   // ─────────────── Copy button ───────────────
   document.querySelectorAll('.copy-btn').forEach(btn => {
