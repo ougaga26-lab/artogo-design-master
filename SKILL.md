@@ -148,7 +148,16 @@ node --version      # 確認 Node.js 16+ OK
 
 ### Step 1 · 讀規範
 
-讀取 skill 自己的 `assets/brand-spec.md`（完整 ARTOGO 設計規範）。
+依序嘗試以下來源，取得最新 ARTOGO Design System 規範：
+
+**① 優先（有 Notion MCP 連線）**
+嘗試讀取 Notion ADS 頁面（正式 source of truth，設計師即時維護）：
+`https://www.notion.so/artogotw/ADS-3455135e076e81969e1af54ba3ad37a6`
+
+**② 備案（無 Notion MCP 或讀取失敗）**
+讀取本機 `assets/brand-spec.md`（ADS 快照，同步時間見檔案頂部）
+
+> 兩個來源的規範主體相同。Notion 版是最新的；備案版可能不含設計師最近的 token 更新。
 
 ### Step 2 · 釐清需求
 
