@@ -139,10 +139,11 @@
 
 ## 安裝指南網頁（docs/index.html）
 
-### 3 個分頁順序
+### 4 個分頁順序
 1. **安裝**（首頁）— 5 步驟安裝指南
 2. **應用案例** — 9 個 huashu-design 能力 GIF
 3. **了解 Skill** — 6 張科普卡片輪播
+4. **版本更新** — Changelog；頂部金色 CTA 含 `npx skills update` 一鍵複製，下方按日期列疊代內容
 
 ### 重要互動細節
 - Step 02 之後有 **⚠️ 安裝 ≠ 設定** 提示（避免同事以為裝完就結束）
@@ -160,7 +161,7 @@
 - Tab 切換用 button data-tab + JS class toggle
 - 輪播用 iframe 載入 6 張卡片，scale 0.667 把 1080×1080 縮到 720×720
 - iframe 的 CTA 用 `parent.postMessage({type:'switch-tab'})` 跨 frame 通訊
-- URL hash 支援 `#install / #showcase / #learn`
+- URL hash 支援 `#install / #showcase / #learn / #changelog`
 - 響應式（980 / 720 / 480 三個 breakpoint）
 - 字型：Google Fonts CDN（Roboto + Roboto Mono + Noto Sans TC）
 - 設計風格嚴守 ARTOGO brand-spec
@@ -277,6 +278,42 @@ git commit -m "Update docs: <變動描述>"
 git push
 # 等 1-2 分鐘 → 開 https://ougaga26-lab.github.io/artogo-design-master/ 看
 ```
+
+### 新增 changelog 條目（每次有更新都做）
+
+只要規範 / SKILL / 流程有任何疊代，**都該在「版本更新」分頁多加一筆**讓同事知道。
+
+**位置**：`docs/index.html` 裡找 `<div class="log-list">`，把新條目**塞在最上面**（最新的在頂端）。
+
+**模板**（直接複製改）：
+```html
+<article class="log-entry">
+  <header class="log-head">
+    <div class="log-year">2026</div>
+    <div class="log-day-rule">
+      <span class="log-day">MM.DD</span>
+      <span class="log-rule"></span>
+    </div>
+  </header>
+  <h3 class="log-title">這次更新的一句話標題</h3>
+  <ul class="log-items">
+    <li class="log-item">
+      <span class="log-tech">技術描述（灰色）</span>
+      <span class="log-arrow">→</span>
+      <span class="log-plain">白話翻譯（亮色，給同事看的）</span>
+    </li>
+    <!-- 通常 3-5 條 item 為佳，太多看不完 -->
+  </ul>
+</article>
+```
+
+**寫作原則**：
+- 左半（tech）：寫實際改了什麼檔案 / token / 流程
+- 右半（白話）：寫**對同事而言會發生什麼變化**
+- 不要兩邊都寫技術，也不要兩邊都寫白話——對比才有資訊量
+- 條目精煉：3-5 條最佳，超過代表更新太雜要拆成兩天
+
+**push 後別忘記**：如果這次更新需要同事重裝，在 commit message / 公司 Slack 也提一下，光看網頁的同事可能漏掉。
 
 ### 改 SKILL.md（流程 / 觸發詞）
 ```bash
