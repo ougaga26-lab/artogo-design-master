@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>08 · 三個客戶端能力光譜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #191919;
+    --bg-container: #353535;
+    --bg-content: #252525;
+    --gold: #ba9972;
+    --gold-light: #ddb586;
+    --text: #e7e7e7;
+    --text-secondary: #c4c4c4;
+    --text-tertiary: #858585;
+    --border: #595959;
+    --border-secondary: #4a4a4a;
+    --error: #f36363;
+    --success: #82d28a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1080px; height: 1080px;
+    background: var(--bg-base);
+    font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+  .canvas {
+    width: 1080px; height: 1080px;
+    padding: 80px;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+
+  .header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .brand {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+  }
+  .brand-dot { color: var(--text-tertiary); margin: 0 12px; }
+  .meta {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.15em;
+  }
+  .corner-tag {
+    position: absolute;
+    top: 132px; right: 80px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--gold);
+    border-radius: 3px;
+    background: rgba(186, 153, 114, 0.08);
+  }
+
+  .hero {
+    margin-top: 56px;
+    display: flex; align-items: flex-end; gap: 40px;
+  }
+  .number {
+    font-family: 'Roboto', sans-serif;
+    font-size: 144px; font-weight: 700;
+    line-height: 0.85;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+  .number-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .number-line::after {
+    content: '';
+    position: absolute;
+    right: 0; top: -2px;
+    width: 5px; height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  .title-block { margin-top: 32px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 44px; font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+
+  .equation {
+    margin-top: 36px;
+    padding: 22px 30px;
+    background: var(--bg-container);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+  .equation-row {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 22px; font-weight: 500;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .equation .lhs { color: var(--gold); font-weight: 700; }
+  .equation .neq { color: var(--gold); margin: 0 14px; font-weight: 400; }
+  .equation .highlight {
+    color: var(--text);
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 1px;
+  }
+  .equation-sub {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+
+  /* Capability table */
+  .cap {
+    margin-top: 32px;
+    background: var(--bg-content);
+    border: 1px solid var(--border-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .cap-row {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    align-items: center;
+  }
+  .cap-row + .cap-row { border-top: 1px solid var(--border-secondary); }
+  .cap-cell {
+    padding: 14px 20px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    text-align: center;
+  }
+  .cap-cell:first-child {
+    text-align: left;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+  .cap-cell + .cap-cell { border-left: 1px solid var(--border-secondary); }
+
+  /* Header row */
+  .cap-row.cap-head .cap-cell {
+    padding: 12px 20px;
+    background: var(--bg-container);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .cap-row.cap-head .cap-cell.code {
+    color: var(--gold);
+  }
+
+  /* Yes/No marks */
+  .mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .mark.yes {
+    background: rgba(130, 210, 138, 0.12);
+    color: var(--success);
+    border: 1px solid var(--success);
+  }
+  .mark.no {
+    background: rgba(243, 99, 99, 0.06);
+    color: var(--text-tertiary);
+    border: 1px solid var(--border-secondary);
+  }
+
+  .footer {
+    margin-top: auto;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-secondary);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .wordmark {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.4em;
+    color: var(--text);
+  }
+  .footer-meta {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-tertiary);
+  }
+  .footer-meta .current { color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <div class="header">
+    <div class="brand">
+      ARTOGO<span class="brand-dot">·</span>NOTES
+    </div>
+    <div class="meta">CLAUDE_SKILLS / Q&amp;A · 2026</div>
+  </div>
+
+  <div class="corner-tag">補充章節 · 2026.04</div>
+
+  <div class="hero">
+    <div class="number">08</div>
+    <div class="number-line"></div>
+  </div>
+
+  <div class="title-block">
+    <div class="eyebrow">SUPPLEMENT · CLIENT CAPABILITIES</div>
+    <h1 class="title">三個 Claude 客戶端 ──<br>能做的事差很多</h1>
+  </div>
+
+  <div class="equation">
+    <div class="equation-row">
+      <span class="lhs">客戶端</span>
+      <span class="neq">≠</span>
+      <span class="highlight">客戶端</span>
+    </div>
+    <div class="equation-sub">本機 / 雲端 / 沙盒環境不同 — 直接決定每個 skill 能不能跑</div>
+  </div>
+
+  <div class="cap">
+    <div class="cap-row cap-head">
+      <div class="cap-cell">// 能力</div>
+      <div class="cap-cell code">Claude Code</div>
+      <div class="cap-cell">Cowork</div>
+      <div class="cap-cell">Chat</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-cell">本機檔案讀寫</div>
+      <div class="cap-cell"><span class="mark yes">✓</span></div>
+      <div class="cap-cell"><span class="mark no">✕</span></div>
+      <div class="cap-cell"><span class="mark no">✕</span></div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-cell">跑 CLI 指令（npx / node）</div>
+      <div class="cap-cell"><span class="mark yes">✓</span></div>
+      <div class="cap-cell"><span class="mark no">✕</span></div>
+      <div class="cap-cell"><span class="mark no">✕</span></div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-cell">安裝 / 觸發本機 skill</div>
+      <div class="cap-cell"><span class="mark yes">✓</span></div>
+      <div class="cap-cell"><span class="mark no">✕</span></div>
+      <div class="cap-cell"><span class="mark no">✕</span></div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-cell">連 Notion / Slack / Figma MCP</div>
+      <div class="cap-cell"><span class="mark yes">✓</span></div>
+      <div class="cap-cell"><span class="mark yes">✓</span></div>
+      <div class="cap-cell"><span class="mark yes">✓</span></div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-cell">沙盒跑程式碼（雲端 skill）</div>
+      <div class="cap-cell"><span class="mark yes">✓</span></div>
+      <div class="cap-cell"><span class="mark yes">✓</span></div>
+      <div class="cap-cell"><span class="mark yes">✓</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="wordmark">ARTOGO</div>
+    <div class="footer-meta"><span class="current">02</span> / 06</div>
+  </div>
+
+</div>
+</body>
+</html>

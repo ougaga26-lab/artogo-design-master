@@ -791,6 +791,72 @@
     .carousel-slide { transform: scale(0.259); }
   }
 
+  /* ─────────────────────── Learn page · Supplement section ─────────────────────── */
+  .supplement {
+    margin: 32px 0 56px;
+    padding-top: 56px;
+    border-top: 1px solid var(--border-secondary);
+  }
+  .supplement-header {
+    margin-bottom: 32px;
+  }
+  .supplement-date {
+    margin-bottom: 22px;
+  }
+  .supplement-year {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--text-tertiary);
+    margin-bottom: 4px;
+  }
+  .supplement-day-rule {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+  .supplement-day {
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px; font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .supplement-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border-secondary);
+  }
+  .supplement-text {
+    max-width: 760px;
+  }
+  .supplement-eyebrow {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .supplement-title {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 26px; font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+  .supplement-sub {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  @media (max-width: 720px) {
+    .supplement-day { font-size: 32px; }
+    .supplement-title { font-size: 20px; }
+  }
+
   /* ─────────────────────── Changelog page ─────────────────────── */
   .changelog-hero {
     padding: 64px 0 24px;
@@ -1162,34 +1228,83 @@
       <p class="showcase-hero-sub">6 個常見問題 · 用日常語言講清楚 ARTOGO Design Master 背後是什麼東西。看完你會知道：它住在哪、怎麼被叫出來、會不會打架、換電腦會跟過去嗎。</p>
     </div>
 
-    <div class="carousel">
-      <button class="carousel-btn carousel-prev" type="button" aria-label="上一張">‹</button>
-      <div class="carousel-stage">
-        <iframe class="carousel-slide active" src="cards/01-what-is-skill.html" data-idx="0" loading="lazy" title="01 技能是什麼"></iframe>
-        <iframe class="carousel-slide" src="cards/02-how-to-list.html" data-idx="1" loading="lazy" title="02 怎麼查看技能"></iframe>
-        <iframe class="carousel-slide" src="cards/03-trigger.html" data-idx="2" loading="lazy" title="03 怎麼呼叫技能"></iframe>
-        <iframe class="carousel-slide" src="cards/04-conflicts.html" data-idx="3" loading="lazy" title="04 技能會打架嗎"></iframe>
-        <iframe class="carousel-slide" src="cards/05-manage.html" data-idx="4" loading="lazy" title="05 怎麼管理技能"></iframe>
-        <iframe class="carousel-slide" src="cards/06-cross-machine.html" data-idx="5" loading="lazy" title="06 換電腦會跟過去嗎"></iframe>
+    <div class="carousel-root">
+      <div class="carousel">
+        <button class="carousel-btn carousel-prev" type="button" aria-label="上一張">‹</button>
+        <div class="carousel-stage">
+          <iframe class="carousel-slide active" src="cards/01-what-is-skill.html" data-idx="0" loading="lazy" title="01 技能是什麼"></iframe>
+          <iframe class="carousel-slide" src="cards/02-how-to-list.html" data-idx="1" loading="lazy" title="02 怎麼查看技能"></iframe>
+          <iframe class="carousel-slide" src="cards/03-trigger.html" data-idx="2" loading="lazy" title="03 怎麼呼叫技能"></iframe>
+          <iframe class="carousel-slide" src="cards/04-conflicts.html" data-idx="3" loading="lazy" title="04 技能會打架嗎"></iframe>
+          <iframe class="carousel-slide" src="cards/05-manage.html" data-idx="4" loading="lazy" title="05 怎麼管理技能"></iframe>
+          <iframe class="carousel-slide" src="cards/06-cross-machine.html" data-idx="5" loading="lazy" title="06 換電腦會跟過去嗎"></iframe>
+        </div>
+        <button class="carousel-btn carousel-next" type="button" aria-label="下一張">›</button>
       </div>
-      <button class="carousel-btn carousel-next" type="button" aria-label="下一張">›</button>
+
+      <div class="carousel-controls">
+        <div class="carousel-dots">
+          <button class="carousel-dot active" type="button" data-idx="0" aria-label="第 1 張"></button>
+          <button class="carousel-dot" type="button" data-idx="1" aria-label="第 2 張"></button>
+          <button class="carousel-dot" type="button" data-idx="2" aria-label="第 3 張"></button>
+          <button class="carousel-dot" type="button" data-idx="3" aria-label="第 4 張"></button>
+          <button class="carousel-dot" type="button" data-idx="4" aria-label="第 5 張"></button>
+          <button class="carousel-dot" type="button" data-idx="5" aria-label="第 6 張"></button>
+        </div>
+        <div class="carousel-page-num">
+          <span class="current">01</span> / 06
+        </div>
+      </div>
+
+      <div class="carousel-hint">// 提示：可用鍵盤左右鍵切換</div>
     </div>
 
-    <div class="carousel-controls">
-      <div class="carousel-dots">
-        <button class="carousel-dot active" type="button" data-idx="0" aria-label="第 1 張"></button>
-        <button class="carousel-dot" type="button" data-idx="1" aria-label="第 2 張"></button>
-        <button class="carousel-dot" type="button" data-idx="2" aria-label="第 3 張"></button>
-        <button class="carousel-dot" type="button" data-idx="3" aria-label="第 4 張"></button>
-        <button class="carousel-dot" type="button" data-idx="4" aria-label="第 5 張"></button>
-        <button class="carousel-dot" type="button" data-idx="5" aria-label="第 6 張"></button>
-      </div>
-      <div class="carousel-page-num">
-        <span class="current">01</span> / 06
+    <!-- ─── Supplement section · 2026.04 ─── -->
+    <div class="supplement">
+      <header class="supplement-header">
+        <div class="supplement-date">
+          <div class="supplement-year">2026</div>
+          <div class="supplement-day-rule">
+            <span class="supplement-day">04.30</span>
+            <span class="supplement-rule"></span>
+          </div>
+        </div>
+        <div class="supplement-text">
+          <div class="supplement-eyebrow">SUPPLEMENT · DEEPER UNDERSTANDING</div>
+          <h2 class="supplement-title">深入理解 — Skill 的類型與限制</h2>
+          <p class="supplement-sub">原本 6 張是「核心概念」。這次同事討論碰到「為什麼 ARTOGO 設計大師只能在 Code 用？」這個問題，補一節進來把 skill 的本機 / 雲端類型差異講清楚。</p>
+        </div>
+      </header>
+
+      <div class="carousel-root">
+        <div class="carousel">
+          <button class="carousel-btn carousel-prev" type="button" aria-label="上一張">‹</button>
+          <div class="carousel-stage">
+            <iframe class="carousel-slide active" src="cards/07-skill-types.html" data-idx="0" loading="lazy" title="07 技能不全是本機"></iframe>
+            <iframe class="carousel-slide" src="cards/08-three-clients.html" data-idx="1" loading="lazy" title="08 三個客戶端能力光譜"></iframe>
+            <iframe class="carousel-slide" src="cards/09-why-only-code.html" data-idx="2" loading="lazy" title="09 為什麼只能在 Code"></iframe>
+            <iframe class="carousel-slide" src="cards/10-install-flow.html" data-idx="3" loading="lazy" title="10 同事的安裝流程拆解"></iframe>
+            <iframe class="carousel-slide" src="cards/11-consequences.html" data-idx="4" loading="lazy" title="11 衍生影響"></iframe>
+            <iframe class="carousel-slide" src="cards/12-right-tool.html" data-idx="5" loading="lazy" title="12 用對工具用對地方"></iframe>
+          </div>
+          <button class="carousel-btn carousel-next" type="button" aria-label="下一張">›</button>
+        </div>
+
+        <div class="carousel-controls">
+          <div class="carousel-dots">
+            <button class="carousel-dot active" type="button" data-idx="0" aria-label="第 1 張"></button>
+            <button class="carousel-dot" type="button" data-idx="1" aria-label="第 2 張"></button>
+            <button class="carousel-dot" type="button" data-idx="2" aria-label="第 3 張"></button>
+            <button class="carousel-dot" type="button" data-idx="3" aria-label="第 4 張"></button>
+            <button class="carousel-dot" type="button" data-idx="4" aria-label="第 5 張"></button>
+            <button class="carousel-dot" type="button" data-idx="5" aria-label="第 6 張"></button>
+          </div>
+          <div class="carousel-page-num">
+            <span class="current">01</span> / 06
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="carousel-hint">// 提示：可用鍵盤左右鍵切換</div>
 
   </div>
 </section>
@@ -1549,40 +1664,46 @@
   });
 
   // ─────────────── Carousel (Learn page) ───────────────
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.carousel-dot');
-  const prevBtn = document.querySelector('.carousel-prev');
-  const nextBtn = document.querySelector('.carousel-next');
-  const pageNumCurrent = document.querySelector('.carousel-page-num .current');
-  let currentIdx = 0;
-  const totalSlides = slides.length;
+  function initCarousel(root) {
+    const slides = root.querySelectorAll('.carousel-slide');
+    const dots = root.querySelectorAll('.carousel-dot');
+    const prevBtn = root.querySelector('.carousel-prev');
+    const nextBtn = root.querySelector('.carousel-next');
+    const pageNumCurrent = root.querySelector('.carousel-page-num .current');
+    let currentIdx = 0;
+    const total = slides.length;
 
-  function goToSlide(idx) {
-    if (totalSlides === 0) return;
-    const newIdx = ((idx % totalSlides) + totalSlides) % totalSlides;
-    if (newIdx === currentIdx) return;
-    slides[currentIdx].classList.remove('active');
-    dots[currentIdx].classList.remove('active');
-    currentIdx = newIdx;
-    slides[currentIdx].classList.add('active');
-    dots[currentIdx].classList.add('active');
-    if (pageNumCurrent) {
-      pageNumCurrent.textContent = String(currentIdx + 1).padStart(2, '0');
+    function goTo(idx) {
+      if (total === 0) return;
+      const newIdx = ((idx % total) + total) % total;
+      if (newIdx === currentIdx) return;
+      slides[currentIdx].classList.remove('active');
+      if (dots[currentIdx]) dots[currentIdx].classList.remove('active');
+      currentIdx = newIdx;
+      slides[currentIdx].classList.add('active');
+      if (dots[currentIdx]) dots[currentIdx].classList.add('active');
+      if (pageNumCurrent) {
+        pageNumCurrent.textContent = String(currentIdx + 1).padStart(2, '0');
+      }
     }
+    function next() { goTo(currentIdx + 1); }
+    function prev() { goTo(currentIdx - 1); }
+
+    if (prevBtn) prevBtn.addEventListener('click', prev);
+    if (nextBtn) nextBtn.addEventListener('click', next);
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+    return { next, prev };
   }
-  function nextSlide() { goToSlide(currentIdx + 1); }
-  function prevSlide() { goToSlide(currentIdx - 1); }
 
-  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-  dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)));
+  const carousels = Array.from(document.querySelectorAll('.carousel-root')).map(initCarousel);
 
-  // Keyboard nav (only when learn tab is active)
+  // Keyboard nav: control the FIRST (main) carousel only
   document.addEventListener('keydown', e => {
     const learnTab = document.getElementById('learn');
     if (!learnTab || !learnTab.classList.contains('active')) return;
-    if (e.key === 'ArrowLeft') prevSlide();
-    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') carousels[0] && carousels[0].prev();
+    if (e.key === 'ArrowRight') carousels[0] && carousels[0].next();
   });
 
   // ─────────────── PostMessage from iframes (e.g. card 06 CTA) ───────────────
